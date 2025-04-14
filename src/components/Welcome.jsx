@@ -29,7 +29,7 @@ const Welcome = ({ setActiveTab }) => {
       <Button
         className="welcome-button"
         onClick={() => setActiveTab('Signup')}
-        sx={{ backgroundColor: '#6D53F4', fontSize: '0.7rem', fontWeight: 300, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' },  mt: 4, px: 4, py: 1.5, borderRadius: 50 }}
+        sx={{ backgroundColor: '#6D53F4', fontSize: '0.7rem', fontWeight: 300, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' },  mt: 4, px: 8, py: 1.5, borderRadius: 50 }}
       >
         Let’s Get Started
       </Button>
