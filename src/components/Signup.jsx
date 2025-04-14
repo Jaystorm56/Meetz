@@ -79,7 +79,7 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
       />
       <Button
         onClick={handleSignup}
-        sx={{ backgroundColor: '#6D53F4', fontSize: '0.7rem', fontWeight: 300, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, mb: 3, borderRadius: 50, px: 4, py: 1.5 }}
+        sx={{ backgroundColor: '#6D53F4', fontSize: '0.9rem', fontWeight: 400, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, mb: 3, borderRadius: 50, px: 4, py: 1.5 }}
         fullWidth
       >
         Sign Up
