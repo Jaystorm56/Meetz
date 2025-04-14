@@ -153,7 +153,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
           {signupStep === 2 && (
             <>
               <Typography variant="h5" className="text-primary" sx={{ fontSize: '30px', fontWeight: 700 }}>How Old Are You?</Typography>
-              <Typography variant="body2" className="text-secondary mb-4" sx={{ fontSize: '16px', fontWeight: 500, marginTop:-6 }}>Select your date of birth</Typography>
+              <Typography variant="body2" className="text-secondary mb-4" sx={{ fontSize: '16px', fontWeight: 500, marginTop:-12 }}>Select your date of birth</Typography>
               <DatePicker
                 label="Date of Birth"
                 value={userProfile.dob}
@@ -197,7 +197,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
           {signupStep === 4 && (
             <>
               <Typography variant="h5" className="text-primary mb-4" sx={{ fontSize: '30px', fontWeight: 700 }}>Describe Yourself</Typography>
-              <Typography variant="body2" className="text-secondary" sx={{ fontSize: '16px', fontWeight: 500, marginTop: -4, marginBottom: 4 }}>Tell us a bit about yourself</Typography>
+              <Typography variant="body2" className="text-secondary" sx={{ fontSize: '16px', fontWeight: 500, marginTop: -6, marginBottom: 4 }}>Tell us a bit about yourself</Typography>
               <TextField
                 label="Bio"
                 value={userProfile.bio}
