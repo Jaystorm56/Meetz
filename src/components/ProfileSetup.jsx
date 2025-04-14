@@ -63,7 +63,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <div className="min-h-screen w-full max-w-md mx-auto flex flex-col justify-between">
         <Box>
-          <AppBar position="static" sx={{ backgroundColor: 'transparent', boxShadow: 'none', marginBottom:'70px' }}>
+          <AppBar position="static" sx={{ backgroundColor: 'transparent', boxShadow: 'none', marginBottom:'50px' }}>
             <Toolbar sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
               <IconButton
                 edge="start"
@@ -79,7 +79,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
               >
                 <ArrowBack sx={{ fontSize: '24px' }} />
               </IconButton>
-              <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', gap: 2 }}>
+              <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
                 <LinearProgress
                   variant="determinate"
                   value={(signupStep / 5) * 100}
@@ -88,7 +88,8 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                     borderRadius: 10,
                     backgroundColor: '#E0E0E0',
                     '& .MuiLinearProgress-bar': { backgroundColor: '#6D53F4' },
-                    flexGrow: 1,
+                    width:'200px'
+            
                   }}
                 />
                 <Typography
@@ -151,8 +152,8 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
           )}
           {signupStep === 2 && (
             <>
-              <Typography variant="h5" className="text-primary mb-4" sx={{ fontSize: '33px', fontWeight: 700 }}>How Old Are You?</Typography>
-              <Typography variant="body2" className="text-secondary mb-6" sx={{ fontSize: '23px', fontWeight: 500 }}>Select your date of birth</Typography>
+              <Typography variant="h5" className="text-primary mb-4" sx={{ fontSize: '30px', fontWeight: 700 }}>How Old Are You?</Typography>
+              <Typography variant="body2" className="text-secondary mb-6" sx={{ fontSize: '16px', fontWeight: 500 }}>Select your date of birth</Typography>
               <DatePicker
                 label="Date of Birth"
                 value={userProfile.dob}
@@ -166,7 +167,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
           {signupStep === 3 && (
             <>
               <Typography variant="h5" className="text-primary mb-2" sx={{ fontSize: '30px', fontWeight: 700, marginTop: 16 }}>Select Up to 5 Interests</Typography>
-              <Typography variant="body2" className="text-secondary" sx={{ fontSize: '19px', fontWeight: 500, marginTop: 1, marginBottom: 4 }}>Discover meaningful connections by selecting your interests</Typography>
+              <Typography variant="body2" className="text-secondary" sx={{ fontSize: '16px', fontWeight: 500, marginTop: 1, marginBottom: 4 }}>Discover meaningful connections by selecting your interests</Typography>
               <Grid container spacing={2} sx={{ mb: 6, justifyContent: 'center' }}>
                 {interestsList.map(interest => (
                   <Grid item xs={4} key={interest.name}>
@@ -195,8 +196,8 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
           )}
           {signupStep === 4 && (
             <>
-              <Typography variant="h5" className="text-primary mb-4" sx={{ fontSize: '38px', fontWeight: 700 }}>Describe Yourself</Typography>
-              <Typography variant="body2" className="text-secondary" sx={{ fontSize: '23px', fontWeight: 500, marginTop: 1, marginBottom: 4 }}>Tell us a bit about yourself</Typography>
+              <Typography variant="h5" className="text-primary mb-4" sx={{ fontSize: '30px', fontWeight: 700 }}>Describe Yourself</Typography>
+              <Typography variant="body2" className="text-secondary" sx={{ fontSize: '16px', fontWeight: 500, marginTop: 1, marginBottom: 4 }}>Tell us a bit about yourself</Typography>
               <TextField
                 label="Bio"
                 value={userProfile.bio}
@@ -204,7 +205,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                 multiline
                 rows={4}
                 fullWidth
-                sx={{ mb: 6, '& .MuiOutlinedInput-root': { borderRadius: 2, fontSize: 25, backgroundColor: '#f4f5f9' } }}
+                sx={{ mb: 6, '& .MuiOutlinedInput-root': { borderRadius: 2, fontSize: 20, backgroundColor: '#f4f5f9' } }}
               />
               <Button onClick={handleProfileNext} sx={{ backgroundColor: '#6D53F4', fontSize: '21px', fontWeight: 550, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Next</Button>
             </>
