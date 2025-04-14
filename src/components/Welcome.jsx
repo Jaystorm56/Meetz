@@ -11,7 +11,7 @@ const Welcome = ({ setActiveTab }) => {
   }, []);
 
   return (
-    <div className="min-h-[90vh] flex flex-col justify-between items-center text-center bg-background border-8">
+    <div className="min-h-[90vh] flex flex-col justify-between items-center text-center bg-background">
       <Box sx={{mt:4}}>
         <img src={meetzLogo} alt="Meetz Logo" className="h-12 mx-auto" />
       </Box>
