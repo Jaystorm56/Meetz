@@ -13,7 +13,7 @@ const Welcome = ({ setActiveTab }) => {
   return (
     <div className="min-h-screen flex flex-col justify-between items-center text-center bg-background">
       <Box sx={{}}>
-        <img src={meetzLogo} alt="Meetz Logo" className="h-20 mx-auto" />
+        <img src={meetzLogo} alt="Meetz Logo" className="h-[30px] mx-auto" />
       </Box>
       <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <video
@@ -21,7 +21,7 @@ const Welcome = ({ setActiveTab }) => {
           autoPlay
           muted
           playsInline
-          className="max-w-full max-h-[60vh] object-contain"
+          className="max-w-full max-h-[55vh] object-contain"
         />
       </Box>
       <Typography variant="h4" className="welcome-text text-accent text-2xl font-extrabold" sx={{ fontSize: 25, fontWeight: 550 }}>Discover Love</Typography>
