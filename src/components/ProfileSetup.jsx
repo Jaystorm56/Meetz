@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { AppBar, Toolbar, IconButton, Button, TextField, Typography, Box, Grid, Modal, LinearProgress } from '@mui/material';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { ArrowBack,Add, Male, Female, VideogameAsset, Book, Camera, Pets, SportsSoccer, Nature, Checkroom, MusicNote, Lightbulb, AttachMoney, Flight, DirectionsCar } from '@mui/icons-material';
+import { ArrowBack, Add, Male, Female, VideogameAsset, Book, Camera, Pets, SportsSoccer, Nature, Checkroom, MusicNote, Lightbulb, AttachMoney, Flight, DirectionsCar } from '@mui/icons-material';
 
 const API_URL = 'https://meetz-api.onrender.com';
 
@@ -10,15 +10,15 @@ const interestsList = [
   { name: 'Gaming', icon: <VideogameAsset /> },
   { name: 'Books', icon: <Book /> },
   { name: 'Photography', icon: <Camera /> },
-  { name: 'Animals', icon: <Pets /> }, // Replaced Footprint with Pets (more common)
-  { name: 'Football', icon: <SportsSoccer /> }, // Replaced Ball with SportsSoccer
+  { name: 'Animals', icon: <Pets /> },
+  { name: 'Football', icon: <SportsSoccer /> },
   { name: 'Nature', icon: <Nature /> },
-  { name: 'Fashion', icon: <Checkroom /> }, // Replaced Cloth with Checkroom
-  { name: 'Music', icon: <MusicNote /> }, // Replaced Note with MusicNote
+  { name: 'Fashion', icon: <Checkroom /> },
+  { name: 'Music', icon: <MusicNote /> },
   { name: 'Tech', icon: <Lightbulb /> },
-  { name: 'Finance', icon: <AttachMoney /> }, // Replaced Money with AttachMoney
-  { name: 'Travel', icon: <Flight /> }, // Replaced Airplane with Flight
-  { name: 'Cars', icon: <DirectionsCar /> }, // Replaced Car with DirectionsCar
+  { name: 'Finance', icon: <AttachMoney /> },
+  { name: 'Travel', icon: <Flight /> },
+  { name: 'Cars', icon: <DirectionsCar /> },
 ];
 
 const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, token, setActiveTab, setLoading, calculateAge, handleProfileChange, handleInterestToggle, handlePhotoUpload, fileInputRefs }) => {
@@ -63,24 +63,53 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <div className="min-h-screen w-full max-w-md mx-auto flex flex-col justify-between">
         <Box>
-          <AppBar position="static" sx={{ backgroundColor: '#6D53F4' }}>
-            <Toolbar>
-              <IconButton edge="start" color="inherit" onClick={() => setSignupStep(prev => prev - 1)} sx={{ color: '#FFFFFF' }}>
-                <ArrowBack sx={{ color: '#FFFFFF', fontSize: '34px' }} />
+          <AppBar position="static" sx={{ backgroundColor: 'transparent', boxShadow: 'none', marginBottom:'70px' }}>
+            <Toolbar sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <IconButton
+                edge="start"
+                onClick={() => setSignupStep(prev => prev - 1)}
+                sx={{
+                  backgroundColor: '#6D53F4',
+                  color: '#FFFFFF',
+                  borderRadius: '50%',
+                  width: 40,
+                  height: 40,
+                  '&:hover': { backgroundColor: '#5C45D3' },
+                }}
+              >
+                <ArrowBack sx={{ fontSize: '24px' }} />
               </IconButton>
-              <Typography variant="h6" className="flex-grow text-center text-white" sx={{ fontSize: '24px', fontWeight: 600 }}>Profile Setup</Typography>
+              <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', gap: 2 }}>
+                <LinearProgress
+                  variant="determinate"
+                  value={(signupStep / 5) * 100}
+                  sx={{
+                    height: 8,
+                    borderRadius: 10,
+                    backgroundColor: '#E0E0E0',
+                    '& .MuiLinearProgress-bar': { backgroundColor: '#6D53F4' },
+                    flexGrow: 1,
+                  }}
+                />
+                <Typography
+                  sx={{
+                    fontSize: '15px',
+                    fontWeight: 500,
+                    color: '#6D53F4',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {signupStep}/5
+                </Typography>
+              </Box>
             </Toolbar>
           </AppBar>
-          <Box sx={{ mt: 4, mb: 6 }}>
-            <LinearProgress variant="determinate" value={(signupStep / 5) * 100} sx={{ height: 12, borderRadius: 10, backgroundColor: '#E0E0E0', '& .MuiLinearProgress-bar': { backgroundColor: '#6D53F4' } }} />
-            <Typography className="text-center mt-2 text-secondary" sx={{ fontSize: '23px', fontWeight: 500 }}>{signupStep}/5</Typography>
-          </Box>
         </Box>
         <Box className="flex-grow flex flex-col justify-evenly text-center h-[450px]">
           {signupStep === 1 && (
             <>
-              <Typography variant="h2" className="text-primary" sx={{ fontSize: '33px', fontWeight: 550 }}>Tell Us About Yourself</Typography>
-              <Typography variant="body2" className="text-secondary" sx={{ fontSize: '19px', fontWeight: 500, marginBottom: 4 }}>To give you a better experience, we need to know your gender</Typography>
+              <Typography variant="h2" className="text-primary" sx={{ fontSize: '30px', fontWeight: 550 }}>Tell Us About Yourself</Typography>
+              <Typography variant="body2" className="text-secondary" sx={{ fontSize: 16, fontWeight: 500, marginBottom: 4 }}>To give you a better experience, we need to know your gender</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
                 <Button
                   onClick={() => handleProfileChange('gender', 'male')}
