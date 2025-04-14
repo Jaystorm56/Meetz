@@ -152,13 +152,13 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
           )}
           {signupStep === 2 && (
             <>
-              <Typography variant="h5" className="text-primary" sx={{ fontSize: '30px', fontWeight: 700 }}>How Old Are You?</Typography>
-              <Typography variant="body2" className="text-secondary mb-4" sx={{ fontSize: '16px', fontWeight: 500 }}>Select your date of birth</Typography>
+              <Typography variant="h5" className="text-primary border" sx={{ fontSize: '30px', fontWeight: 700 }}>How Old Are You?</Typography>
+              <Typography variant="body2 border" className="text-secondary mb-4" sx={{ fontSize: '16px', fontWeight: 500, marginTop:-6 }}>Select your date of birth</Typography>
               <DatePicker
                 label="Date of Birth"
                 value={userProfile.dob}
                 onChange={(newValue) => handleProfileChange('dob', newValue)}
-                renderInput={(params) => <TextField {...params} fullWidth sx={{ mb: 6, maxWidth: 200, mx: 'auto', borderRadius: 2, '& .MuiOutlinedInput-root': { borderRadius: 2 } }} />}
+                renderInput={(params) => <TextField {...params} fullWidth sx={{ mb: 6, mt:-8, maxWidth: 200, mx: 'auto', borderRadius: 2, '& .MuiOutlinedInput-root': { borderRadius: 2 } }} />}
                 maxDate={new Date()}
               />
               <Button onClick={handleProfileNext} sx={{ backgroundColor: '#6D53F4', fontSize: '0.9rem', fontWeight: 400, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Next</Button>
@@ -166,7 +166,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
           )}
           {signupStep === 3 && (
             <>
-              <Typography variant="h5" className="text-primary mb-2" sx={{ fontSize: '30px', fontWeight: 700 }}>Select Up to 5 Interests</Typography>
+              <Typography variant="h5" className="text-primary mb-2" sx={{ fontSize: '30px', fontWeight: 700, marginTop: 6 }}>Select Up to 5 Interests</Typography>
               <Typography variant="body2" className="text-secondary" sx={{ fontSize: '16px', fontWeight: 500, marginTop: 1, marginBottom: 4 }}>Discover meaningful connections by selecting your interests</Typography>
               <Grid container spacing={2} sx={{ mb: 6, justifyContent: 'center' }}>
                 {interestsList.map(interest => (
