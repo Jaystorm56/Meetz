@@ -12,28 +12,28 @@ const Welcome = ({ setActiveTab }) => {
 
   return (
     <div className="min-h-screen flex flex-col justify-between items-center text-center bg-background">
-      <Box sx={{flex:1}}>
+      <Box sx={{}}>
         <img src={meetzLogo} alt="Meetz Logo" className="h-12 mx-auto" />
       </Box>
-      <Box sx={{flex:1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt:2 }}>
         <video
           src={animatedVideo}
           autoPlay
           muted
           playsInline
-          className="max-w-full max-h-[60vh] object-contain "
+          className="max-w-full max-h-[60vh] object-contain"
         />
       </Box>
-      <Typography variant="h4" className="welcome-text text-accent text-2xl font-extrabold" sx={{flex:1, fontSize: 25, fontWeight: 550 }}>Discover Love</Typography>
-      <Typography className="welcome-text text-secondary" sx={{flex:1, fontSize: 11, fontWeight: 500 }}>Connecting hearts effortlessly.</Typography>
+      <Typography variant="h4" className="welcome-text text-accent text-2xl font-extrabold" sx={{ fontSize: 25, fontWeight: 550,mt:2 }}>Discover Love</Typography>
+      <Typography className="welcome-text text-secondary" sx={{ fontSize: 11, fontWeight: 500 }}>Connecting hearts effortlessly.</Typography>
       <Button
         className="welcome-button"
         onClick={() => setActiveTab('Signup')}
-        sx={{ flex:1, backgroundColor: '#6D53F4', fontSize: '0.7rem', fontWeight: 300, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' },  mt: 2, px: 4, py: 1.5, borderRadius: 50 }}
+        sx={{ backgroundColor: '#6D53F4', fontSize: '0.7rem', fontWeight: 300, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' },  mt: 4, px: 4, py: 1.5, borderRadius: 50 }}
       >
         Let’s Get Started
       </Button>
-      <Typography className="text-secondary mb-16" sx={{flex:1,  fontSize: 13, fontWeight: 500 }}>
+      <Typography className="text-secondary mb-16" sx={{ fontSize: 13, fontWeight: 500 }}>
         Already have an account?{' '}
         <Button onClick={() => setActiveTab('Login')} sx={{ color: '#6D53F4', fontSize: 13, fontWeight: 500, textTransform: 'none' }}>Sign in</Button>
       </Typography>
