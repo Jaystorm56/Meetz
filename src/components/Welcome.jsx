@@ -15,7 +15,7 @@ const Welcome = ({ setActiveTab }) => {
       <Box sx={{mt:4}}>
         <img src={meetzLogo} alt="Meetz Logo" className="h-12 mx-auto" />
       </Box>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt:2 , maxHeight:'90vh'}}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt:2 , maxHeight:'100vh'}}>
         <video
           src={animatedVideo}
           autoPlay
