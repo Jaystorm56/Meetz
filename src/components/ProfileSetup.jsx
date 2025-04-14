@@ -63,7 +63,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <div className="min-h-screen w-full max-w-md mx-auto flex flex-col justify-between">
         <Box>
-          <AppBar position="static" sx={{ backgroundColor: 'transparent', boxShadow: 'none', marginBottom:'20px', border:'4px solid' }}>
+          <AppBar position="static" sx={{ backgroundColor: 'transparent', boxShadow: 'none', marginBottom:'10px', border:'4px solid' }}>
             <Toolbar sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
               <IconButton
                 edge="start"
@@ -109,8 +109,8 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
         <Box className="flex-grow flex flex-col justify-evenly text-center h-[450px]">
           {signupStep === 1 && (
             <>
-              <Typography variant="h2" className="text-primary" sx={{ fontSize: '30px', fontWeight: 550, border:'3px solid' }}>Tell Us About Yourself</Typography>
-              <Typography variant="body2" className="text-secondary" sx={{ fontSize: 16, fontWeight: 500, marginBottom: 4, marginTop:-3 }}>To give you a better experience, we need to know your gender</Typography>
+              <Typography variant="h2" className="text-primary" sx={{ fontSize: '30px', fontWeight: 550 }}>Tell Us About Yourself</Typography>
+              <Typography variant="body2" className="text-secondary" sx={{ fontSize: 16, fontWeight: 500, marginBottom: 4, marginTop:-5 }}>To give you a better experience, we need to know your gender</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
                 <Button
                   onClick={() => handleProfileChange('gender', 'male')}
