@@ -63,7 +63,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <div className="min-h-screen w-full max-w-md mx-auto flex flex-col justify-between">
         <Box>
-          <AppBar position="static" sx={{ backgroundColor: 'transparent', boxShadow: 'none', marginBottom:'50px' }}>
+          <AppBar position="static" sx={{ backgroundColor: 'transparent', boxShadow: 'none', marginBottom:'20px' }}>
             <Toolbar sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
               <IconButton
                 edge="start"
@@ -147,7 +147,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                   </Box>
                 </Button>
               </Box>
-              <Button onClick={handleProfileNext} sx={{ mt: 4, backgroundColor: '#6D53F4', fontSize: '21px', fontWeight: 550, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Next</Button>
+              <Button onClick={handleProfileNext} sx={{ mt: 4, backgroundColor: '#6D53F4', fontSize: '0.9rem', fontWeight: 400, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Next</Button>
             </>
           )}
           {signupStep === 2 && (
@@ -161,7 +161,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                 renderInput={(params) => <TextField {...params} fullWidth sx={{ mb: 6, maxWidth: 200, mx: 'auto', borderRadius: 2, '& .MuiOutlinedInput-root': { borderRadius: 2 } }} />}
                 maxDate={new Date()}
               />
-              <Button onClick={handleProfileNext} sx={{ backgroundColor: '#6D53F4', fontSize: '21px', fontWeight: 550, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Next</Button>
+              <Button onClick={handleProfileNext} sx={{ backgroundColor: '#6D53F4', fontSize: '0.9rem', fontWeight: 400, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Next</Button>
             </>
           )}
           {signupStep === 3 && (
@@ -191,7 +191,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                   </Grid>
                 ))}
               </Grid>
-              <Button onClick={handleProfileNext} sx={{ backgroundColor: '#6D53F4', fontSize: '21px', fontWeight: 550, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Next</Button>
+              <Button onClick={handleProfileNext} sx={{ backgroundColor: '#6D53F4', fontSize: '0.9rem', fontWeight: 400, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Next</Button>
             </>
           )}
           {signupStep === 4 && (
@@ -207,7 +207,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                 fullWidth
                 sx={{ mb: 6, '& .MuiOutlinedInput-root': { borderRadius: 2, fontSize: 20, backgroundColor: '#f4f5f9' } }}
               />
-              <Button onClick={handleProfileNext} sx={{ backgroundColor: '#6D53F4', fontSize: '21px', fontWeight: 550, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Next</Button>
+              <Button onClick={handleProfileNext} sx={{ backgroundColor: '#6D53F4', fontSize: '0.9rem', fontWeight: 400, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Next</Button>
             </>
           )}
           {signupStep === 5 && (
@@ -258,7 +258,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                   </Box>
                 </Grid>
               </Grid>
-              <Button onClick={handleProfileNext} sx={{ backgroundColor: '#6D53F4', fontSize: '21px', fontWeight: 550, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Finish</Button>
+              <Button onClick={handleProfileNext} sx={{ backgroundColor: '#6D53F4', fontSize: '0.9rem', fontWeight: 400, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Finish</Button>
             </>
           )}
         </Box>
