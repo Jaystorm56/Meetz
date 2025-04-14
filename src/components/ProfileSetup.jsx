@@ -147,13 +147,13 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                   </Box>
                 </Button>
               </Box>
-              <Button onClick={handleProfileNext} sx={{ mt: 3, backgroundColor: '#6D53F4', fontSize: '0.9rem', fontWeight: 400, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Next</Button>
+              <Button onClick={handleProfileNext} sx={{ mt: 2, backgroundColor: '#6D53F4', fontSize: '0.9rem', fontWeight: 400, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Next</Button>
             </>
           )}
           {signupStep === 2 && (
             <>
-              <Typography variant="h5" className="text-primary mb-4" sx={{ fontSize: '30px', fontWeight: 700 }}>How Old Are You?</Typography>
-              <Typography variant="body2" className="text-secondary mb-6" sx={{ fontSize: '16px', fontWeight: 500 }}>Select your date of birth</Typography>
+              <Typography variant="h5" className="text-primary" sx={{ fontSize: '30px', fontWeight: 700 }}>How Old Are You?</Typography>
+              <Typography variant="body2" className="text-secondary mb-4" sx={{ fontSize: '16px', fontWeight: 500 }}>Select your date of birth</Typography>
               <DatePicker
                 label="Date of Birth"
                 value={userProfile.dob}
@@ -166,7 +166,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
           )}
           {signupStep === 3 && (
             <>
-              <Typography variant="h5" className="text-primary mb-2" sx={{ fontSize: '30px', fontWeight: 700, marginTop: 16 }}>Select Up to 5 Interests</Typography>
+              <Typography variant="h5" className="text-primary mb-2" sx={{ fontSize: '30px', fontWeight: 700 }}>Select Up to 5 Interests</Typography>
               <Typography variant="body2" className="text-secondary" sx={{ fontSize: '16px', fontWeight: 500, marginTop: 1, marginBottom: 4 }}>Discover meaningful connections by selecting your interests</Typography>
               <Grid container spacing={2} sx={{ mb: 6, justifyContent: 'center' }}>
                 {interestsList.map(interest => (
