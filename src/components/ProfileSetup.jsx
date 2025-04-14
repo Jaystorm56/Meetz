@@ -110,7 +110,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
           {signupStep === 1 && (
             <>
               <Typography variant="h2" className="text-primary" sx={{ fontSize: '30px', fontWeight: 550 }}>Tell Us About Yourself</Typography>
-              <Typography variant="body2" className="text-secondary" sx={{ fontSize: 16, fontWeight: 500, marginBottom: 4 }}>To give you a better experience, we need to know your gender</Typography>
+              <Typography variant="body2" className="text-secondary" sx={{ fontSize: 16, fontWeight: 500, marginBottom: 4, marginTop:-1 }}>To give you a better experience, we need to know your gender</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
                 <Button
                   onClick={() => handleProfileChange('gender', 'male')}
