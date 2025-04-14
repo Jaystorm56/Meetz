@@ -110,7 +110,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
           {signupStep === 1 && (
             <>
               <Typography variant="h2" className="text-primary" sx={{ fontSize: '30px', fontWeight: 550 }}>Tell Us About Yourself</Typography>
-              <Typography variant="body2" className="text-secondary" sx={{ fontSize: 16, fontWeight: 500, marginBottom: 3, marginTop:-4 }}>To give you a better experience, we need to know your gender</Typography>
+              <Typography variant="body2" className="text-secondary" sx={{ fontSize: 16, fontWeight: 500, marginBottom: 2, marginTop:-4 }}>To give you a better experience, we need to know your gender</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
                 <Button
                   onClick={() => handleProfileChange('gender', 'male')}
@@ -147,7 +147,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                   </Box>
                 </Button>
               </Box>
-              <Button onClick={handleProfileNext} sx={{ mt: 4, backgroundColor: '#6D53F4', fontSize: '0.9rem', fontWeight: 400, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Next</Button>
+              <Button onClick={handleProfileNext} sx={{ mt: 3, backgroundColor: '#6D53F4', fontSize: '0.9rem', fontWeight: 400, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Next</Button>
             </>
           )}
           {signupStep === 2 && (
