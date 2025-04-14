@@ -27,25 +27,25 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
 
   return (
     <div className="min-h-screen w-full max-w-md mx-auto flex flex-col justify-between">
-      <Box sx={{ flex: 1 }} />
+      <Box sx={{ flex: 1, border:'1px solid' }} />
       <Typography variant="h4" className="text-primary mb-2 p-1 text-center" sx={{ fontSize: 35, fontWeight: 550 }}>Create Account</Typography>
       <Typography variant="body2" className="text-secondary mb-8 text-center" sx={{ fontSize: 18, fontWeight: 500 }}>Fill your information below</Typography>
       <TextField
         label="Email"
-        InputLabelProps={{ sx: { fontSize: '20px' } }}
+        InputLabelProps={{ sx: { fontSize: '18px' } }}
         value={signupData.username}
         onChange={(e) => setSignupData({ ...signupData, username: e.target.value })}
         fullWidth
-        sx={{ mb: 3, mt: 4, borderRadius: 2, '& .MuiOutlinedInput-root': { borderRadius: 2, fontSize: 25, backgroundColor: '#f4f5f9' } }}
+        sx={{ mb: 3, mt: 4, borderRadius: 2, '& .MuiOutlinedInput-root': { borderRadius: 2, fontSize: 20, backgroundColor: '#f4f5f9' } }}
       />
       <TextField
         label="Password"
-        InputLabelProps={{ sx: { fontSize: '20px' } }}
+        InputLabelProps={{ sx: { fontSize: '18px' } }}
         type={showPassword ? 'text' : 'password'}
         value={signupData.password}
         onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
         fullWidth
-        sx={{ mb: 3, borderRadius: 2, '& .MuiOutlinedInput-root': { borderRadius: 2, fontSize: 25, backgroundColor: '#f4f5f9' } }}
+        sx={{ mb: 3, borderRadius: 2, '& .MuiOutlinedInput-root': { borderRadius: 2, fontSize: 20, backgroundColor: '#f4f5f9' } }}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
@@ -58,33 +58,33 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
       />
       <TextField
         label="First Name"
-        InputLabelProps={{ sx: { fontSize: '20px' } }}
+        InputLabelProps={{ sx: { fontSize: '18px' } }}
         value={signupData.firstName}
         onChange={(e) => setSignupData({ ...signupData, firstName: e.target.value })}
         fullWidth
-        sx={{ mb: 3, borderRadius: 2, '& .MuiOutlinedInput-root': { fontSize: 25, borderRadius: 2, backgroundColor: '#f4f5f9' } }}
+        sx={{ mb: 3, borderRadius: 2, '& .MuiOutlinedInput-root': { fontSize: 20, borderRadius: 2, backgroundColor: '#f4f5f9' } }}
       />
       <TextField
         label="Last Name"
-        InputLabelProps={{ sx: { fontSize: '20px' } }}
+        InputLabelProps={{ sx: { fontSize: '18px' } }}
         value={signupData.lastName}
         onChange={(e) => setSignupData({ ...signupData, lastName: e.target.value })}
         fullWidth
-        sx={{ mb: 3, borderRadius: 2, '& .MuiOutlinedInput-root': { fontSize: 25, borderRadius: 2, backgroundColor: '#f4f5f9' } }}
+        sx={{ mb: 3, borderRadius: 2, '& .MuiOutlinedInput-root': { fontSize: 20, borderRadius: 2, backgroundColor: '#f4f5f9' } }}
       />
       <FormControlLabel
         control={<Checkbox checked={signupData.termsAgreed} onChange={(e) => setSignupData({ ...signupData, termsAgreed: e.target.checked })} />}
-        label={<Typography sx={{ fontSize: '18px' }}> I agree to the <a href="/terms" target="_blank" className="text-accent text-lg">Terms & Conditions</a></Typography>}
+        label={<Typography sx={{ fontSize: '16px' }}> I agree to the <a href="/terms" target="_blank" className="text-accent text-[16px]">Terms & Conditions</a></Typography>}
         sx={{ mb: 2 }}
       />
       <Button
         onClick={handleSignup}
-        sx={{ backgroundColor: '#6D53F4', fontSize: '20px', fontWeight: 500, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, mb: 3, borderRadius: 50, px: 4, py: 1.5 }}
+        sx={{ backgroundColor: '#6D53F4', fontSize: '0.7rem', fontWeight: 300, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, mb: 3, borderRadius: 50, px: 4, py: 1.5 }}
         fullWidth
       >
         Sign Up
       </Button>
-      <Button onClick={() => setActiveTab('Login')} sx={{ color: '#6D53F4', fontSize: '16px', fontWeight: 500 }}>Already have an account? Login</Button>
+      <Button onClick={() => setActiveTab('Login')} sx={{ color: '#6D53F4', fontSize: 13, fontWeight: 500 }}>Already have an account? Login</Button>
       <Box sx={{ flex: 1 }} />
     </div>
   );
