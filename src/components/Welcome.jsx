@@ -12,16 +12,16 @@ const Welcome = ({ setActiveTab }) => {
 
   return (
     <div className="min-h-screen flex flex-col justify-between items-center text-center bg-background">
-      <Box sx={{flex:1}}>
+      <Box sx={{}}>
         <img src={meetzLogo} alt="Meetz Logo" className="h-12 mx-auto" />
       </Box>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt:2 , border: '1px solid'}}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt:2 , border: '1px solid', maxHeight:'90vh'}}>
         <video
           src={animatedVideo}
           autoPlay
           muted
           playsInline
-          className="max-w-full max-h-[140vh] object-contain "
+          className="max-w-full max-h-[90vh] object-contain "
         />
       </Box>
       <Typography variant="h4" className="welcome-text text-accent text-2xl font-extrabold" sx={{ fontSize: 25, fontWeight: 550,mt:2 }}>Discover Love</Typography>
