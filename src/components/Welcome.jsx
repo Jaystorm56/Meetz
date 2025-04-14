@@ -25,7 +25,7 @@ const Welcome = ({ setActiveTab }) => {
         />
       </Box>
       <Typography variant="h4" className="welcome-text text-accent text-2xl font-extrabold" sx={{ fontSize: 25, fontWeight: 550 }}>Discover Love</Typography>
-      <Typography className="welcome-text text-secondary" sx={{ fontSize: 11, fontWeight: 500 }}>Meetz: Connecting hearts effortlessly.</Typography>
+      <Typography className="welcome-text text-secondary" sx={{ fontSize: 11, fontWeight: 500 }}>Connecting hearts effortlessly.</Typography>
       <Button
         className="welcome-button"
         onClick={() => setActiveTab('Signup')}
