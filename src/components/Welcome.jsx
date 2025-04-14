@@ -21,7 +21,7 @@ const Welcome = ({ setActiveTab }) => {
           autoPlay
           muted
           playsInline
-          className="max-w-full max-h-[60vh] object-contain"
+          className="max-w-full max-h-[70vh] object-contain"
         />
       </Box>
       <Typography variant="h4" className="welcome-text text-accent text-2xl font-extrabold" sx={{ fontSize: 25, fontWeight: 550,mt:2 }}>Discover Love</Typography>
