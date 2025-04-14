@@ -13,7 +13,7 @@ const Welcome = ({ setActiveTab }) => {
   return (
     <div className="min-h-screen flex flex-col justify-between items-center text-center bg-background">
       <Box sx={{}}>
-        <img src={meetzLogo} alt="Meetz Logo" className="h-10 mx-auto" />
+        <img src={meetzLogo} alt="Meetz Logo" className="h-20 mx-auto" />
       </Box>
       <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <video
