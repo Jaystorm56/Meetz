@@ -212,8 +212,8 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
           )}
           {signupStep === 5 && (
             <>
-              <Typography variant="h5" className="text-primary mb-2" sx={{ fontSize: '30px', fontWeight: 700 }}>Upload Your Photos</Typography>
-              <Typography variant="body2" className="text-secondary mb-4" sx={{ fontSize: '16px', fontWeight: 500, marginTop: 1, marginBottom: 4 }}>To boost your daily match potential, upload your photos</Typography>
+              <Typography variant="h5" className="text-primary" sx={{ fontSize: '30px', fontWeight: 700 }}>Upload Your Photos</Typography>
+              <Typography variant="body2" className="text-secondary mb-4" sx={{ fontSize: '16px', fontWeight: 500, marginTop: -4, marginBottom: 4 }}>To boost your daily match potential, upload your photos</Typography>
               <Grid container spacing={2} sx={{ mb: 6 }}>
                 <Grid item xs={6}>
                   <Box sx={{ backgroundColor: '#F4F5F9', borderRadius: 2, height: '260px', width: '230px', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
