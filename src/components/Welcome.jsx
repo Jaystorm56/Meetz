@@ -11,11 +11,11 @@ const Welcome = ({ setActiveTab }) => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col justify-between items-center text-center bg-background">
-      <Box sx={{}}>
+    <div className="min-h-screen flex flex-col justify-between items-center text-center bg-background border-8">
+      <Box sx={{mt:4}}>
         <img src={meetzLogo} alt="Meetz Logo" className="h-12 mx-auto" />
       </Box>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt:2 , border: '1px solid', maxHeight:'90vh'}}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt:2 , maxHeight:'90vh'}}>
         <video
           src={animatedVideo}
           autoPlay
