@@ -27,7 +27,7 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
 
   return (
     <div className="min-h-screen w-full max-w-md mx-auto flex flex-col justify-between">
-      <Box sx={{ flex: 1, border:'1px solid' }} />
+      <Box sx={{ }} />
       <Typography variant="h4" className="text-primary mb-2 p-1 text-center" sx={{ fontSize: 35, fontWeight: 550 }}>Create Account</Typography>
       <Typography variant="body2" className="text-secondary mb-8 text-center" sx={{ fontSize: 18, fontWeight: 500 }}>Fill your information below</Typography>
       <TextField
