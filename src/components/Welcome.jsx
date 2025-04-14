@@ -33,9 +33,9 @@ const Welcome = ({ setActiveTab }) => {
       >
         Let’s Get Started
       </Button>
-      <Typography className="text-secondary mb-16" sx={{ fontSize: 13, fontWeight: 500 }}>
+      <Typography className="text-secondary" sx={{ fontSize: 13, fontWeight: 500 }}>
         Already have an account?{' '}
-        <Button onClick={() => setActiveTab('Login')} sx={{ color: '#6D53F4', fontSize: 13, fontWeight: 500, textTransform: 'none' }}>Sign in</Button>
+        <Button onClick={() => setActiveTab('Login')} sx={{ color: '#6D53F4', fontSize: 13, fontWeight: 500, textTransform: 'none', marginLeft: -1 }}>Sign in</Button>
       </Typography>
       <Box sx={{ flex: 1 }} />
     </div>
