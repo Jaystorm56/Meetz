@@ -61,57 +61,60 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <div className="min-h-screen w-full max-w-md mx-auto flex flex-col justify-between">
-        <Box>
-          <AppBar position="static" sx={{ backgroundColor: 'transparent', boxShadow: 'none', marginBottom:'10px', border:'4px solid' }}>
-            <Toolbar sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <IconButton
-                edge="start"
-                onClick={() => setSignupStep(prev => prev - 1)}
+      <Box sx={{ minHeight: '100vh', width: '100%', maxWidth: '100%', mx: 'auto', display: 'flex', flexDirection: 'column', px: { xs: 2, sm: 3 } }}>
+        <AppBar position="static" sx={{ backgroundColor: 'transparent', boxShadow: 'none', mb: 2, border: '2px solid', borderRadius: 2 }}>
+          <Toolbar sx={{ display: 'flex', alignItems: 'center', gap: 2, py: 1 }}>
+            <IconButton
+              edge="start"
+              onClick={() => setSignupStep(prev => prev - 1)}
+              sx={{
+                backgroundColor: '#6D53F4',
+                color: '#FFFFFF',
+                borderRadius: '50%',
+                width: { xs: 36, sm: 40 },
+                height: { xs: 36, sm: 40 },
+                '&:hover': { backgroundColor: '#5C45D3' },
+              }}
+            >
+              <ArrowBack sx={{ fontSize: { xs: 20, sm: 24 } }} />
+            </IconButton>
+            <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
+              <LinearProgress
+                variant="determinate"
+                value={(signupStep / 5) * 100}
                 sx={{
-                  backgroundColor: '#6D53F4',
-                  color: '#FFFFFF',
-                  borderRadius: '50%',
-                  width: 40,
-                  height: 40,
-                  '&:hover': { backgroundColor: '#5C45D3' },
+                  height: 8,
+                  borderRadius: 10,
+                  backgroundColor: '#E0E0E0',
+                  '& .MuiLinearProgress-bar': { backgroundColor: '#6D53F4' },
+                  width: { xs: '60%', sm: '40%', md: '30%' },
+                }}
+              />
+              <Typography
+                sx={{
+                  fontSize: { xs: '14px', sm: '15px' },
+                  fontWeight: 500,
+                  color: '#6D53F4',
+                  whiteSpace: 'nowrap',
                 }}
               >
-                <ArrowBack sx={{ fontSize: '24px' }} />
-              </IconButton>
-              <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
-                <LinearProgress
-                  variant="determinate"
-                  value={(signupStep / 5) * 100}
-                  sx={{
-                    height: 8,
-                    borderRadius: 10,
-                    backgroundColor: '#E0E0E0',
-                    '& .MuiLinearProgress-bar': { backgroundColor: '#6D53F4' },
-                    width:'200px'
-            
-                  }}
-                />
-                <Typography
-                  sx={{
-                    fontSize: '15px',
-                    fontWeight: 500,
-                    color: '#6D53F4',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {signupStep}/5
-                </Typography>
-              </Box>
-            </Toolbar>
-          </AppBar>
-        </Box>
-        <Box className="flex-grow flex flex-col justify-evenly text-center h-[450px]">
+                {signupStep}/5
+              </Typography>
+            </Box>
+          </Toolbar>
+        </AppBar>
+        <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', textAlign: 'center' }}>
           {signupStep === 1 && (
             <>
-              <Typography variant="h2" className="text-primary" sx={{ fontSize: '30px', fontWeight: 550 }}>Tell Us About Yourself</Typography>
-              <Typography variant="body2" className="text-secondary" sx={{ fontSize: 16, fontWeight: 500, marginBottom: 2, marginTop:-4 }}>To give you a better experience, we need to know your gender</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="h2" sx={{ fontSize: { xs: '24px', sm: '30px' }, fontWeight: 550, color: '#6D53F4' }}>
+                  Tell Us About Yourself
+                </Typography>
+                <Typography variant="body2" sx={{ fontSize: { xs: '14px', sm: '16px' }, fontWeight: 500, color: '#666', mt: 1 }}>
+                  To give you a better experience, we need to know your gender
+                </Typography>
+              </Box>
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3, width: '100%' }}>
                 <Button
                   onClick={() => handleProfileChange('gender', 'male')}
                   sx={{
@@ -119,14 +122,16 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                     color: userProfile.gender === 'male' ? '#FFFFFF' : '#6D53F4',
                     p: 3,
                     borderRadius: '50%',
-                    width: 150,
-                    height: 150,
-                    '&:hover': { backgroundColor: userProfile.gender === 'male' ? '#5C45D3' : '#E8E9F0' }
+                    width: { xs: '40vw', sm: '150px' },
+                    height: { xs: '40vw', sm: '150px' },
+                    maxWidth: '150px',
+                    maxHeight: '150px',
+                    '&:hover': { backgroundColor: userProfile.gender === 'male' ? '#5C45D3' : '#E8E9F0' },
                   }}
                 >
                   <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <Male sx={{ fontSize: 50 }} />
-                    <Typography>Male</Typography>
+                    <Male sx={{ fontSize: { xs: 40, sm: 50 } }} />
+                    <Typography sx={{ fontSize: { xs: '14px', sm: '16px' } }}>Male</Typography>
                   </Box>
                 </Button>
                 <Button
@@ -136,41 +141,96 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                     color: userProfile.gender === 'female' ? '#FFFFFF' : '#6D53F4',
                     p: 3,
                     borderRadius: '50%',
-                    width: 150,
-                    height: 150,
-                    '&:hover': { backgroundColor: userProfile.gender === 'female' ? '#5C45D3' : '#E8E9F0' }
+                    width: { xs: '40vw', sm: '150px' },
+                    height: { xs: '40vw', sm: '150px' },
+                    maxWidth: '150px',
+                    maxHeight: '150px',
+                    '&:hover': { backgroundColor: userProfile.gender === 'female' ? '#5C45D3' : '#E8E9F0' },
                   }}
                 >
                   <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <Female sx={{ fontSize: 50 }} />
-                    <Typography>Female</Typography>
+                    <Female sx={{ fontSize: { xs: 40, sm: 50 } }} />
+                    <Typography sx={{ fontSize: { xs: '14px', sm: '16px' } }}>Female</Typography>
                   </Box>
                 </Button>
               </Box>
-              <Button onClick={handleProfileNext} sx={{ mt: 2, backgroundColor: '#6D53F4', fontSize: '0.9rem', fontWeight: 400, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Next</Button>
+              <Button
+                onClick={handleProfileNext}
+                sx={{
+                  mt: 3,
+                  backgroundColor: '#6D53F4',
+                  fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                  fontWeight: 400,
+                  color: '#FFFFFF',
+                  '&:hover': { backgroundColor: '#5C45D3' },
+                  px: 4,
+                  py: 1.5,
+                  borderRadius: 50,
+                }}
+              >
+                Next
+              </Button>
             </>
           )}
           {signupStep === 2 && (
             <>
-              <Typography variant="h5" className="text-primary" sx={{ fontSize: '30px', fontWeight: 700 }}>How Old Are You?</Typography>
-              <Typography variant="body2" className="text-secondary mb-4" sx={{ fontSize: '16px', fontWeight: 500, marginTop:-12 }}>Select your date of birth</Typography>
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="h5" sx={{ fontSize: { xs: '24px', sm: '30px' }, fontWeight: 700, color: '#6D53F4' }}>
+                  How Old Are You?
+                </Typography>
+                <Typography variant="body2" sx={{ fontSize: { xs: '14px', sm: '16px' }, fontWeight: 500, color: '#666', mt: 1 }}>
+                  Select your date of birth
+                </Typography>
+              </Box>
               <DatePicker
                 label="Date of Birth"
                 value={userProfile.dob}
                 onChange={(newValue) => handleProfileChange('dob', newValue)}
-                renderInput={(params) => <TextField {...params} fullWidth sx={{ mb: 6, maxWidth: 200, mx: 'auto', borderRadius: 2, '& .MuiOutlinedInput-root': { borderRadius: 2 } }} />}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    fullWidth
+                    sx={{
+                      mb: 6,
+                      maxWidth: { xs: '80%', sm: '300px' },
+                      mx: 'auto',
+                      borderRadius: 2,
+                      '& .MuiOutlinedInput-root': { borderRadius: 2 },
+                    }}
+                  />
+                )}
                 maxDate={new Date()}
               />
-              <Button onClick={handleProfileNext} sx={{ backgroundColor: '#6D53F4', fontSize: '0.9rem', fontWeight: 400, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Next</Button>
+              <Button
+                onClick={handleProfileNext}
+                sx={{
+                  backgroundColor: '#6D53F4',
+                  fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                  fontWeight: 400,
+                  color: '#FFFFFF',
+                  '&:hover': { backgroundColor: '#5C45D3' },
+                  px: 4,
+                  py: 1.5,
+                  borderRadius: 50,
+                }}
+              >
+                Next
+              </Button>
             </>
           )}
           {signupStep === 3 && (
             <>
-              <Typography variant="h5" className="text-primary mb-2" sx={{ fontSize: '30px', fontWeight: 700, marginTop: 6 }}>Select Up to 5 Interests</Typography>
-              <Typography variant="body2" className="text-secondary" sx={{ fontSize: '16px', fontWeight: 500, marginTop: 1, marginBottom: 4 }}>Discover meaningful connections by selecting your interests</Typography>
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="h5" sx={{ fontSize: { xs: '24px', sm: '30px' }, fontWeight: 700, color: '#6D53F4' }}>
+                  Select Up to 5 Interests
+                </Typography>
+                <Typography variant="body2" sx={{ fontSize: { xs: '14px', sm: '16px' }, fontWeight: 500, color: '#666', mt: 1 }}>
+                  Discover meaningful connections by selecting your interests
+                </Typography>
+              </Box>
               <Grid container spacing={2} sx={{ mb: 6, justifyContent: 'center' }}>
                 {interestsList.map(interest => (
-                  <Grid item xs={4} key={interest.name}>
+                  <Grid item xs={4} sm={3} md={2.4} key={interest.name}>
                     <Button
                       onClick={() => handleInterestToggle(interest.name)}
                       sx={{
@@ -180,24 +240,46 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                         borderRadius: 4,
                         width: '100%',
                         display: 'flex',
+                        flexDirection: 'column',
                         justifyContent: 'center',
                         alignItems: 'center',
                         gap: 1,
+                        minHeight: { xs: '80px', sm: '100px' },
                       }}
                     >
                       {interest.icon}
-                      <Typography>{interest.name}</Typography>
+                      <Typography sx={{ fontSize: { xs: '12px', sm: '14px' } }}>{interest.name}</Typography>
                     </Button>
                   </Grid>
                 ))}
               </Grid>
-              <Button onClick={handleProfileNext} sx={{ backgroundColor: '#6D53F4', fontSize: '0.9rem', fontWeight: 400, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Next</Button>
+              <Button
+                onClick={handleProfileNext}
+                sx={{
+                  backgroundColor: '#6D53F4',
+                  fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                  fontWeight: 400,
+                  color: '#FFFFFF',
+                  '&:hover': { backgroundColor: '#5C45D3' },
+                  px: 4,
+                  py: 1.5,
+                  borderRadius: 50,
+                }}
+              >
+                Next
+              </Button>
             </>
           )}
           {signupStep === 4 && (
             <>
-              <Typography variant="h5" className="text-primary mb-4" sx={{ fontSize: '30px', fontWeight: 700 }}>Describe Yourself</Typography>
-              <Typography variant="body2" className="text-secondary" sx={{ fontSize: '16px', fontWeight: 500, marginTop: -6, marginBottom: 4 }}>Tell us a bit about yourself</Typography>
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="h5" sx={{ fontSize: { xs: '24px', sm: '30px' }, fontWeight: 700, color: '#6D53F4' }}>
+                  Describe Yourself
+                </Typography>
+                <Typography variant="body2" sx={{ fontSize: { xs: '14px', sm: '16px' }, fontWeight: 500, color: '#666', mt: 1 }}>
+                  Tell us a bit about yourself
+                </Typography>
+              </Box>
               <TextField
                 label="Bio"
                 value={userProfile.bio}
@@ -205,71 +287,184 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                 multiline
                 rows={4}
                 fullWidth
-                sx={{ mb: 6, '& .MuiOutlinedInput-root': { borderRadius: 2, fontSize: 20, backgroundColor: '#f4f5f9' } }}
+                sx={{
+                  mb: 6,
+                  maxWidth: { xs: '90%', sm: '500px' },
+                  mx: 'auto',
+                  '& .MuiOutlinedInput-root': { borderRadius: 2, fontSize: { xs: '16px', sm: '18px' }, backgroundColor: '#f4f5f9' },
+                }}
               />
-              <Button onClick={handleProfileNext} sx={{ backgroundColor: '#6D53F4', fontSize: '0.9rem', fontWeight: 400, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Next</Button>
+              <Button
+                onClick={handleProfileNext}
+                sx={{
+                  backgroundColor: '#6D53F4',
+                  fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                  fontWeight: 400,
+                  color: '#FFFFFF',
+                  '&:hover': { backgroundColor: '#5C45D3' },
+                  px: 4,
+                  py: 1.5,
+                  borderRadius: 50,
+                }}
+              >
+                Next
+              </Button>
             </>
           )}
           {signupStep === 5 && (
             <>
-              <Typography variant="h5" className="text-primary" sx={{ fontSize: '30px', fontWeight: 700 }}>Upload Your Photos</Typography>
-              <Typography variant="body2" className="text-secondary mb-4" sx={{ fontSize: '16px', fontWeight: 500, marginTop: -4, marginBottom: 4 }}>To boost your daily match potential, upload your photos</Typography>
-              <Grid container spacing={2} sx={{ mb: 6 }}>
-                <Grid item xs={6}>
-                  <Box sx={{ backgroundColor: '#F4F5F9', borderRadius: 2, height: '260px', width: '230px', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="h5" sx={{ fontSize: { xs: '24px', sm: '30px' }, fontWeight: 700, color: '#6D53F4' }}>
+                  Upload Your Photos
+                </Typography>
+                <Typography variant="body2" sx={{ fontSize: { xs: '14px', sm: '16px' }, fontWeight: 500, color: '#666', mt: 1 }}>
+                  To boost your daily match potential, upload your photos
+                </Typography>
+              </Box>
+              <Grid container spacing={2} sx={{ mb: 2, p: 2 }}>
+                <Grid item xs={12} sm={7}>
+                  <Box
+                    sx={{
+                      backgroundColor: '#F4F5F9',
+                      borderRadius: 2,
+                      height: { xs: '50vw', sm: '260px' },
+                      maxHeight: '260px',
+                      width: '100%',
+                      minWidth: '260px',
+                      mx: 'auto',
+                      position: 'relative',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
                     {userProfile.photos[0] ? (
                       <>
-                        <img src={userProfile.photos[0]} alt="Main" className="w-full h-full object-cover rounded-lg" />
+                        <img src={userProfile.photos[0]} alt="Main" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
                         <Button
                           onClick={() => fileInputRefs.current[0].click()}
-                          sx={{ position: 'absolute', bottom: 10, backgroundColor: '#6D53F4', color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' } }}
+                          sx={{
+                            position: 'absolute',
+                            bottom: 10,
+                            backgroundColor: '#6D53F4',
+                            color: '#FFFFFF',
+                            '&:hover': { backgroundColor: '#5C45D3' },
+                            fontSize: { xs: '12px', sm: '14px' },
+                          }}
                         >
                           Change Photo
                         </Button>
                       </>
                     ) : (
                       <IconButton onClick={() => fileInputRefs.current[0].click()} sx={{ color: '#6D53F4' }}>
-                        <Add sx={{ fontSize: 60 }} />
+                        <Add sx={{ fontSize: { xs: 50, sm: 60 } }} />
                       </IconButton>
                     )}
                     <input type="file" accept="image/*" ref={el => (fileInputRefs.current[0] = el)} onChange={(e) => handlePhotoUpload(0, e)} style={{ display: 'none' }} />
                   </Box>
                 </Grid>
-                <Grid item xs={6}>
-                  <Box sx={{ backgroundColor: '#F4F5F9', borderRadius: 2, height: '127px', width: '111px', mb: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    {userProfile.photos[1] ? (
-                      <img src={userProfile.photos[1]} alt="Photo 2" className="w-full h-full object-cover rounded-lg" />
-                    ) : (
-                      <IconButton onClick={() => fileInputRefs.current[1].click()} sx={{ color: '#6D53F4' }}>
-                        <Add sx={{ fontSize: 40 }} />
-                      </IconButton>
-                    )}
-                    <input type="file" accept="image/*" ref={el => (fileInputRefs.current[1] = el)} onChange={(e) => handlePhotoUpload(1, e)} style={{ display: 'none' }} />
-                  </Box>
-                  <Box sx={{ backgroundColor: '#F4F5F9', borderRadius: 2, height: '127px', width: '111px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    {userProfile.photos[2] ? (
-                      <img src={userProfile.photos[2]} alt="Photo 3" className="w-full h-full object-cover rounded-lg" />
-                    ) : (
-                      <IconButton onClick={() => fileInputRefs.current[2].click()} sx={{ color: '#6D53F4' }}>
-                        <Add sx={{ fontSize: 40 }} />
-                      </IconButton>
-                    )}
-                    <input type="file" accept="image/*" ref={el => (fileInputRefs.current[2] = el)} onChange={(e) => handlePhotoUpload(2, e)} style={{ display: 'none' }} />
+                <Grid item xs={12} sm={5}>
+                  <Box sx={{ display: 'flex', gap: 2, height: '100%', justifyContent: 'center' }}>
+                    <Box
+                      sx={{
+                        backgroundColor: '#F4F5F9',
+                        borderRadius: 2,
+                        height: { xs: '30vw', sm: '180px' },
+                        maxHeight: '180px',
+                        width: '100%',
+                        minWidth: '125px',
+                        mx: 'auto',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {userProfile.photos[1] ? (
+                        <img src={userProfile.photos[1]} alt="Photo 2" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
+                      ) : (
+                        <IconButton onClick={() => fileInputRefs.current[1].click()} sx={{ color: '#6D53F4' }}>
+                          <Add sx={{ fontSize: { xs: 40, sm: 50 } }} />
+                        </IconButton>
+                      )}
+                      <input type="file" accept="image/*" ref={el => (fileInputRefs.current[1] = el)} onChange={(e) => handlePhotoUpload(1, e)} style={{ display: 'none' }} />
+                    </Box>
+                    <Box
+                      sx={{
+                        backgroundColor: '#F4F5F9',
+                        borderRadius: 2,
+                        height: { xs: '30vw', sm: '180px' },
+                        maxHeight: '180px',
+                        width: '100%',
+                        minWidth: '125px',
+                        mx: 'auto',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {userProfile.photos[2] ? (
+                        <img src={userProfile.photos[2]} alt="Photo 3" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
+                      ) : (
+                        <IconButton onClick={() => fileInputRefs.current[2].click()} sx={{ color: '#6D53F4' }}>
+                          <Add sx={{ fontSize: { xs: 40, sm: 50 } }} />
+                        </IconButton>
+                      )}
+                      <input type="file" accept="image/*" ref={el => (fileInputRefs.current[2] = el)} onChange={(e) => handlePhotoUpload(2, e)} style={{ display: 'none' }} />
+                    </Box>
                   </Box>
                 </Grid>
               </Grid>
-              <Button onClick={handleProfileNext} sx={{ backgroundColor: '#6D53F4', fontSize: '0.9rem', fontWeight: 400, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, px: 4, py: 1.5, borderRadius: 50 }}>Finish</Button>
+              <Button
+                onClick={handleProfileNext}
+                sx={{
+                  backgroundColor: '#6D53F4',
+                  fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                  fontWeight: 400,
+                  color: '#FFFFFF',
+                  '&:hover': { backgroundColor: '#5C45D3' },
+                  px: 4,
+                  py: 1.5,
+                  borderRadius: 50,
+                }}
+              >
+                Finish
+              </Button>
             </>
           )}
         </Box>
-        <Box sx={{ height: '10vh' }} />
+        <Box sx={{ height: { xs: '5vh', sm: '10vh' } }} />
         <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
-          <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: '#FFFFFF', p: 4, borderRadius: 2, textAlign: 'center' }}>
-            <Typography variant="h6" sx={{ mb: 2, color: '#242424' }}>{modalMessage}</Typography>
-            <Button onClick={() => setModalOpen(false)} sx={{ backgroundColor: '#6D53F4', color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, borderRadius: 50 }}>OK</Button>
+          <Box sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            bgcolor: '#FFFFFF',
+            p: 4,
+            borderRadius: 2,
+            textAlign: 'center',
+            width: { xs: '80%', sm: '400px' },
+            maxWidth: '90%',
+          }}>
+            <Typography variant="h6" sx={{ mb: 2, color: '#242424', fontSize: { xs: '18px', sm: '20px' } }}>
+              {modalMessage}
+            </Typography>
+            <Button
+              onClick={() => setModalOpen(false)}
+              sx={{
+                backgroundColor: '#6D53F4',
+                color: '#FFFFFF',
+                '&:hover': { backgroundColor: '#5C45D3' },
+                borderRadius: 50,
+                px: 4,
+                py: 1,
+              }}
+            >
+              OK
+            </Button>
           </Box>
         </Modal>
-      </div>
+      </Box>
     </LocalizationProvider>
   );
 };
