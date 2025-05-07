@@ -63,13 +63,13 @@ const Home = ({ users, currentIndex, setCurrentIndex, token, setActiveTab, setLo
           >
             <Card className="shadow-lg h-[460px] rounded-lg overflow-hidden " sx={{  height: {
                     xs: '460px', // < 414px
-                    sm: '510px', // ≥ 414px
+                    sm: '530px', // ≥ 414px
                     minHeight: '400px',
                     '@media (max-width: 413.99px)': {
                     height: '460px',
                   },
                   '@media (min-width: 414px)': {
-                    height: '510px',
+                    height: '530px',
                   },
                   } }}>
               {/* Background Image or Placeholder */}
