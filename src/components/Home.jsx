@@ -59,9 +59,9 @@ const Home = ({ users, currentIndex, setCurrentIndex, token, setActiveTab, setLo
             onCardLeftScreen={(dir) => onCardLeftScreen(dir)}
             preventSwipe={['up', 'down']}
             className={`absolute w-[93%] max-w-md ${index === currentIndex ? 'z-10' : 'z-0'}`}
-            
+            sx={{ flexGrow: 1 }}
           >
-            <Card className="shadow-lg rounded-lg overflow-hidden " sx={{ height: 'calc(90vh - 64px - 96px - 32px)', minHeight: '200px', }}>
+            <Card className="shadow-lg rounded-lg overflow-hidden " sx={{ height: 'calc(100vh - 20vh - 20vh - 32px)', minHeight: '400px', }}>
               <div className="relative h-full w-full">
                 {user.photos && user.photos[0] ? (
                   <div
