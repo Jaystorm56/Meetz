@@ -61,7 +61,7 @@ const Home = ({ users, currentIndex, setCurrentIndex, token, setActiveTab, setLo
             className={`absolute w-[93%] max-w-md ${index === currentIndex ? 'z-10' : 'z-0'}`}
             
           >
-            <Card className="shadow-lg rounded-lg overflow-hidden " sx={{ height: 'calc(100vh - 64px - 96px - 32px)', minHeight: '400px', }}>
+            <Card className="shadow-lg rounded-lg overflow-hidden " sx={{ height: 'calc(90vh - 64px - 96px - 32px)', minHeight: '200px', }}>
               <div className="relative h-full w-full">
                 {user.photos && user.photos[0] ? (
                   <div
