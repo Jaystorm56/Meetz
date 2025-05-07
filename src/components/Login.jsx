@@ -21,7 +21,7 @@ const Login = ({ loginData, setLoginData, setToken, setActiveTab, setAuthError, 
 
   return (
     <div className="w-full max-w-md mx-auto flex flex-col items-center justify-evenly h-[600px]">
-      <Typography variant="h4" className="text-primary text-bold mb-8 text-center" sx={{ fontSize: 35, fontWeight: 550 }}>Sign In</Typography>
+      <Typography variant="h4" className="text-primary text-bold mb-8 text-center" sx={{ fontSize: 35, fontWeight: 550, color: '#6D53F4' }}>Sign In</Typography>
       <Typography variant="body2" className="text-secondary mb-8 text-center" sx={{ fontSize: 22, fontWeight: 500 }}>Hi, Welcome back!</Typography>
       <TextField
         label="Email"
