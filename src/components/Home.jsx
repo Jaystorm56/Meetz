@@ -61,7 +61,7 @@ const Home = ({ users, currentIndex, setCurrentIndex, token, setActiveTab, setLo
             className={`absolute w-[93%] max-w-md ${index === currentIndex ? 'z-10' : 'z-0'}`}
             sx={{ flexGrow: 1 }}
           >
-            <Card className="shadow-lg h-[70vh] rounded-lg overflow-hidden min-h-[200px]">
+            <Card className="shadow-lg h-[500px] rounded-lg overflow-hidden min-h-[200px]">
               <div className="relative h-full w-full">
                 {user.photos && user.photos[0] ? (
                   <div
