@@ -4,6 +4,7 @@ import { Person, Edit, ChevronRight, Policy } from '@mui/icons-material';
 import { GoPerson } from "react-icons/go";
 import { GrSettingsOption } from "react-icons/gr";
 import { IoExit } from "react-icons/io5";
+
 const API_URL = 'https://meetz-api.onrender.com';
 
 const Profile = ({ userProfile, setUserProfile, isEditingProfile, setIsEditingProfile, token, setToken, setActiveTab, setLoading, handlePhotoUpload, capitalizeName }) => {
@@ -36,7 +37,7 @@ const Profile = ({ userProfile, setUserProfile, isEditingProfile, setIsEditingPr
 
   if (!isEditingProfile) {
     return (
-      <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl flex flex-col h-full overflow-y-auto px-4">
+      <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl flex flex-col h-full overflow-y-auto px-0">
         <div className="flex flex-col items-center pt-4 pb-2">
           <div className="relative">
             {userProfile.photos[0] ? (
@@ -79,53 +80,53 @@ const Profile = ({ userProfile, setUserProfile, isEditingProfile, setIsEditingPr
             {userProfile.firstName} {userProfile.lastName}
           </h2>
         </div>
-        <div className="overflow-y-auto" style={{ maxHeight: 'calc(100vh - 300px)' }}>
-          <List>
+        <div className="overflow-y-auto flex flex-col" style={{ height: '45vh', width: '100%' }}>
+          <List sx={{ width: '100%', padding: 0}}>
             <ListItem 
               button 
               onClick={() => setIsEditingProfile(true)} 
-              sx={{ borderBottom: '1px solid #E0E0E0', py: { xs: 1.5, sm: 2 } }}
+              sx={{ borderBottom: '1px solid #E0E0E0', width:'100%', marginTop: '10px',px:'0px', py: { xs: 1.5, sm: 2 }, display: 'flex', alignItems: 'center' , justifyContent: 'space-between' }}
             >
-              <GoPerson size={32} style={{ color: '#6D53F4', marginRight: 12,}} />
+              <GoPerson size={32} style={{ color: '#6D53F4', marginRight: 12 }} />
               <ListItemText 
                 primary="Edit Profile" 
-                primaryTypographyProps={{ fontSize: { xs: '1.4rem', sm: '1.6rem' }, color: '#242424' }} 
+                sx={{ fontSize: { xs: '1.4rem', sm: '1.6rem' }, color: '#242424' }} 
               />
               <ChevronRight sx={{ color: '#6D53F4', fontSize: { xs: 30, sm: 35 } }} />
             </ListItem>
             <ListItem 
               button 
               onClick={() => console.log('Settings - Coming soon!')} 
-              sx={{ borderBottom: '1px solid #E0E0E0', py: { xs: 1.5, sm: 2 } }}
+              sx={{ borderBottom: '1px solid #E0E0E0', marginTop: '10px',px:'0px', py: { xs: 1.5, sm: 2 } }}
             >
-              <GrSettingsOption size={32} style={{ color: '#6D53F4', marginRight: 12,}}/>
+              <GrSettingsOption size={32} style={{ color: '#6D53F4', marginRight: 12 }} />
               <ListItemText 
                 primary="Settings" 
-                primaryTypographyProps={{ fontSize: { xs: '1.4rem', sm: '1.6rem' }, color: '#242424' }} 
+                sx={{ fontSize: { xs: '1.4rem', sm: '1.6rem' }, color: '#242424' }} 
               />
               <ChevronRight sx={{ color: '#6D53F4', fontSize: { xs: 30, sm: 35 } }} />
             </ListItem>
             <ListItem 
               button 
               onClick={() => console.log('Privacy Policy - Coming soon!')} 
-              sx={{ borderBottom: '1px solid #E0E0E0', py: { xs: 1.5, sm: 2 } }}
+              sx={{ borderBottom: '1px solid #E0E0E0', marginTop: '10px', px:'0px', py: { xs: 1.5, sm: 2 } }}
             >
               <Policy sx={{ color: '#6D53F4', mr: 2, fontSize: { xs: 30, sm: 35 } }} />
               <ListItemText 
                 primary="Privacy Policy" 
-                primaryTypographyProps={{ fontSize: { xs: '1.4rem', sm: '1.6rem' }, color: '#242424' }} 
+                sx={{ fontSize: { xs: '1.4rem', sm: '1.6rem' }, color: '#242424' }} 
               />
               <ChevronRight sx={{ color: '#6D53F4', fontSize: { xs: 30, sm: 35 } }} />
             </ListItem>
             <ListItem 
               button 
               onClick={handleLogout} 
-              sx={{ borderBottom: '1px solid #E0E0E0', py: { xs: 1.5, sm: 2 } }}
+              sx={{ borderBottom: '1px solid #E0E0E0', marginTop: '10px', px:'0px', py: { xs: 1.5, sm: 2 } }}
             >
-              <IoExit size={32} style={{ color: '#6D53F4', marginRight: 12,}} />
+              <IoExit size={32} style={{ color: '#6D53F4', marginRight: 12 }} />
               <ListItemText 
                 primary="Logout" 
-                primaryTypographyProps={{ fontSize: { xs: '1.4rem', sm: '1.6rem' }, color: '#242424' }} 
+                sx={{ fontSize: { xs: '1.4rem', sm: '1.6rem' }, color: '#242424' }} 
               />
               <ChevronRight sx={{ color: '#6D53F4', fontSize: { xs: 30, sm: 35 } }} />
             </ListItem>
