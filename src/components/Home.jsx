@@ -61,7 +61,18 @@ const Home = ({ users, currentIndex, setCurrentIndex, token, setActiveTab, setLo
             className={`absolute w-[93%] max-w-md ${index === currentIndex ? 'z-10' : 'z-0'}`}
             sx={{ flexGrow: 1 }}
           >
-            <Card className="shadow-lg h-[460px] rounded-lg overflow-hidden min-h-[200px]">
+            <Card className="shadow-lg h-[460px] rounded-lg overflow-hidden " sx={{  height: {
+                    xs: '460px', // < 414px
+                    sm: '480px', // ≥ 414px
+                    minHeight: '400px',
+                    '@media (max-width: 413.99px)': {
+                    height: '460px',
+                  },
+                  '@media (min-width: 414px)': {
+                    height: '480px',
+                  },
+                  } }}>
+              {/* Background Image or Placeholder */}
               <div className="relative h-full w-full">
                 {user.photos && user.photos[0] ? (
                   <div
