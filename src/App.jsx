@@ -284,7 +284,7 @@ function App() {
 
         {/* Conditionally apply padding and margin based on whether ChatScreen or ChatList is active */}
         <div
-          className={`flex-grow flex justify-center overflow-y-auto ${
+          className={`flex-grow flex justify-center ${
             activeTab === 'Chat' && selectedUser
               ? 'p-0 m-0'
               : activeTab === 'Chat' || activeTab === 'Matches'
