@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { AppBar, Toolbar, IconButton, Typography } from '@mui/material';
 import { ArrowBack, FilterAlt, Search } from '@mui/icons-material';
+import { IoFilter } from "react-icons/io5";
 import meetzLogoBg from './assets/images/meetzlogbg.png';
 import './index.css';
 
@@ -275,8 +276,8 @@ function App() {
                 <h2 className="text-xl font-bold text-white flex-grow text-center">{isEditingProfile ? 'Edit Profile' : activeTab}</h2>
               )}
               {activeTab === 'Home' && <div className="flex-grow" />}
-              <IconButton edge="end" color="inherit" onClick={() => console.log('Filter/Search - Coming soon!')} sx={{ color: '#FFFFFF' }}>
-                {activeTab === 'Home' ? <FilterAlt /> : <Search />}
+              <IconButton edge="end" color="inherit" onClick={() => console.log('Filter/Search - Coming soon!')} sx={{ color: '#FFFFFF', fontSize: '35px' }}>
+                {activeTab === 'Home' ? <IoFilter /> : <Search />}
               </IconButton>
             </Toolbar>
           </AppBar>

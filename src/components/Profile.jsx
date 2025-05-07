@@ -1,7 +1,9 @@
 import { useRef } from 'react';
 import { Card, CardContent, List, ListItem, ListItemText, TextField, IconButton, Button, Box } from '@mui/material';
-import { Person, Edit, ChevronRight, Settings, Lock, Policy } from '@mui/icons-material';
-
+import { Person, Edit, ChevronRight, Policy } from '@mui/icons-material';
+import { GoPerson } from "react-icons/go";
+import { GrSettingsOption } from "react-icons/gr";
+import { IoExit } from "react-icons/io5";
 const API_URL = 'https://meetz-api.onrender.com';
 
 const Profile = ({ userProfile, setUserProfile, isEditingProfile, setIsEditingProfile, token, setToken, setActiveTab, setLoading, handlePhotoUpload, capitalizeName }) => {
@@ -84,7 +86,7 @@ const Profile = ({ userProfile, setUserProfile, isEditingProfile, setIsEditingPr
               onClick={() => setIsEditingProfile(true)} 
               sx={{ borderBottom: '1px solid #E0E0E0', py: { xs: 1.5, sm: 2 } }}
             >
-              <Person sx={{ color: '#6D53F4', mr: 2, fontSize: { xs: 30, sm: 35 } }} />
+              <GoPerson size={32} style={{ color: '#6D53F4', marginRight: 12,}} />
               <ListItemText 
                 primary="Edit Profile" 
                 primaryTypographyProps={{ fontSize: { xs: '1.4rem', sm: '1.6rem' }, color: '#242424' }} 
@@ -96,7 +98,7 @@ const Profile = ({ userProfile, setUserProfile, isEditingProfile, setIsEditingPr
               onClick={() => console.log('Settings - Coming soon!')} 
               sx={{ borderBottom: '1px solid #E0E0E0', py: { xs: 1.5, sm: 2 } }}
             >
-              <Settings sx={{ color: '#6D53F4', mr: 2, fontSize: { xs: 30, sm: 35 } }} />
+              <GrSettingsOption size={32} style={{ color: '#6D53F4', marginRight: 12,}}/>
               <ListItemText 
                 primary="Settings" 
                 primaryTypographyProps={{ fontSize: { xs: '1.4rem', sm: '1.6rem' }, color: '#242424' }} 
@@ -120,7 +122,7 @@ const Profile = ({ userProfile, setUserProfile, isEditingProfile, setIsEditingPr
               onClick={handleLogout} 
               sx={{ borderBottom: '1px solid #E0E0E0', py: { xs: 1.5, sm: 2 } }}
             >
-              <Lock sx={{ color: '#6D53F4', mr: 2, fontSize: { xs: 30, sm: 35 } }} />
+              <IoExit size={32} style={{ color: '#6D53F4', marginRight: 12,}} />
               <ListItemText 
                 primary="Logout" 
                 primaryTypographyProps={{ fontSize: { xs: '1.4rem', sm: '1.6rem' }, color: '#242424' }} 

@@ -1,6 +1,8 @@
 import { useRef } from 'react';
 import { Card, IconButton } from '@mui/material';
-import { Close, Chat, Favorite, Person } from '@mui/icons-material';
+import { Close, Favorite, Person } from '@mui/icons-material';
+import { IoChatboxEllipsesOutline } from "react-icons/io5";
+import { LuHeartHandshake } from "react-icons/lu";
 import TinderCard from 'react-tinder-card';
 import { gsap } from 'gsap';
 
@@ -95,7 +97,7 @@ const Home = ({ users, currentIndex, setCurrentIndex, token, setActiveTab, setLo
                 {/* Text Overlay */}
                 <div className="absolute bottom-16 left-4 right-4 text-white">
                   <h2 className="text-3xl font-bold">{user.firstName}, {user.age}</h2>
-                  <p className="text-xl">{user.bio}</p>
+                  <p className="text-xs sm:text-sm">{user.bio}</p>
                 </div>
 
                 {/* Icon Buttons */}
@@ -104,10 +106,10 @@ const Home = ({ users, currentIndex, setCurrentIndex, token, setActiveTab, setLo
                     <Close fontSize="large" />
                   </IconButton>
                   <IconButton onClick={handleChatClick} sx={{ color: 'green', backgroundColor: 'rgba(255, 255, 255, 0.8)', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 1)' } }}>
-                    <Chat fontSize="large" />
+                    <IoChatboxEllipsesOutline fontSize="35px" />
                   </IconButton>
                   <IconButton onClick={(e) => handleIconClick('right', e)} sx={{ color: '#6D53F4', backgroundColor: 'rgba(255, 255, 255, 0.8)', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 1)' } }}>
-                    <Favorite fontSize="large" />
+                    <LuHeartHandshake fontSize="35px" />
                   </IconButton>
                 </div>
               </div>
