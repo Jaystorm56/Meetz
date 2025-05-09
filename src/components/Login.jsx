@@ -1,8 +1,12 @@
-import { Button, TextField, Typography } from '@mui/material';
+import { useState } from 'react';
+import { Button, TextField, Typography, InputAdornment, IconButton } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const API_URL = 'https://meetz-api.onrender.com';
 
 const Login = ({ loginData, setLoginData, setToken, setActiveTab, setAuthError, setLoading }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleLogin = () => {
     setLoading(true);
     fetch(`${API_URL}/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(loginData) })
@@ -29,16 +33,25 @@ const Login = ({ loginData, setLoginData, setToken, setActiveTab, setAuthError, 
         value={loginData.username}
         onChange={(e) => setLoginData({ ...loginData, username: e.target.value })}
         fullWidth
-        sx={{ mt: 4, borderRadius: 2, '& .MuiOutlinedInput-root': { borderRadius: 2,fontSize: 20, backgroundColor: '#f4f5f9' } }}
+        sx={{ mt: 4, borderRadius: 2, fontSize: 20, backgroundColor: '#f4f5f9', '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
       />
       <TextField
         label="Password"
         InputLabelProps={{ sx: { fontSize: '18px' } }}
-        type="password"
+        type={showPassword ? 'text' : 'password'}
         value={loginData.password}
         onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
         fullWidth
-        sx={{ mb: 2, borderRadius: 2, '& .MuiOutlinedInput-root': { borderRadius: 2,fontSize: 20, backgroundColor: '#f4f5f9' } }}
+        sx={{ mb: 2, borderRadius: 2, fontSize: 20, backgroundColor: '#f4f5f9', '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
       />
       <Button onClick={handleLogin} sx={{ backgroundColor: '#6D53F4', fontSize: '0.9rem', fontWeight: 400, color: '#FFFFFF', '&:hover': { backgroundColor: '#5C45D3' }, mb: 3, borderRadius: 50, px: 4, py: 1.5 }} fullWidth>Sign In</Button>
       <Button onClick={() => setActiveTab('Signup')} sx={{ color: '#6D53F4', fontSize: 13, fontWeight: 500 }}>Need an account? Sign up</Button>

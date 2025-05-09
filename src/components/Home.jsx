@@ -97,7 +97,7 @@ const Home = ({ users, currentIndex, setCurrentIndex, token, setActiveTab, setLo
                 {/* Text Overlay */}
                 <div className="absolute bottom-16 left-4 right-4 text-white">
                   <h2 className="text-3xl font-bold">{user.firstName}, {user.age}</h2>
-                  <p className="text-xs sm:text-sm">{user.bio}</p>
+                  <p className="text-sm sm:text-sm">{user.bio}</p>
                 </div>
 
                 {/* Icon Buttons */}

@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { AppBar, Toolbar, IconButton, Typography } from '@mui/material';
-import { ArrowBack, FilterAlt, Search } from '@mui/icons-material';
+import { ArrowBack, Search } from '@mui/icons-material';
 import { IoFilter } from "react-icons/io5";
+import { LuSettings2 } from "react-icons/lu";
 import meetzLogoBg from './assets/images/meetzlogbg.png';
 import './index.css';
 
@@ -277,7 +278,7 @@ function App() {
               )}
               {activeTab === 'Home' && <div className="flex-grow" />}
               <IconButton edge="end" color="inherit" onClick={() => console.log('Filter/Search - Coming soon!')} sx={{ color: '#FFFFFF', fontSize: '35px' }}>
-                {activeTab === 'Home' ? <IoFilter /> : <Search />}
+                {activeTab === 'Home' ? <LuSettings2  /> : <Search />}
               </IconButton>
             </Toolbar>
           </AppBar>

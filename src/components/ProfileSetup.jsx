@@ -61,8 +61,8 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <Box sx={{ minHeight: '100vh', width: '100%', maxWidth: '100%', mx: 'auto', display: 'flex', flexDirection: 'column', px: { xs: 2, sm: 3 } }}>
-        <AppBar position="static" sx={{ backgroundColor: 'transparent', boxShadow: 'none', mb: 2, border: '2px solid', borderRadius: 2 }}>
+      <Box sx={{ width: '100%', maxWidth: '100%', mx: 'auto', display: 'flex', flexDirection: 'column', px: { xs: 2, sm: 3 } }}>
+        <AppBar position="static" sx={{ backgroundColor: 'transparent', boxShadow: 'none',  borderRadius: 2 }}>
           <Toolbar sx={{ display: 'flex', alignItems: 'center', gap: 2, py: 1 }}>
             <IconButton
               edge="start"
@@ -174,7 +174,8 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
           )}
           {signupStep === 2 && (
             <>
-              <Box sx={{ mb: 2 }}>
+            <Box sx={{ mb: 2, minHeight: '80vh', display: 'flex',flexDirection: 'column', justifyContent: 'between', gap: 16 }}>
+            <Box sx={{ }}>
                 <Typography variant="h5" sx={{ fontSize: { xs: '24px', sm: '30px' }, fontWeight: 700, color: '#6D53F4' }}>
                   How Old Are You?
                 </Typography>
@@ -216,6 +217,8 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
               >
                 Next
               </Button>
+            </Box>
+          
             </>
           )}
           {signupStep === 3 && (
@@ -240,11 +243,11 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                         borderRadius: 4,
                         width: '100%',
                         display: 'flex',
-                        flexDirection: 'column',
                         justifyContent: 'center',
                         alignItems: 'center',
                         gap: 1,
-                        minHeight: { xs: '80px', sm: '100px' },
+                        height: { xs: '50px', sm: '60px' },
+                       
                       }}
                     >
                       {interest.icon}
@@ -272,7 +275,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
           )}
           {signupStep === 4 && (
             <>
-              <Box sx={{ mb: 2 }}>
+              <Box sx={{ mb: 12 }}>
                 <Typography variant="h5" sx={{ fontSize: { xs: '24px', sm: '30px' }, fontWeight: 700, color: '#6D53F4' }}>
                   Describe Yourself
                 </Typography>
@@ -305,6 +308,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                   px: 4,
                   py: 1.5,
                   borderRadius: 50,
+                  mt: 16,
                 }}
               >
                 Next
@@ -321,7 +325,9 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                   To boost your daily match potential, upload your photos
                 </Typography>
               </Box>
-              <Grid container spacing={2} sx={{ mb: 2, p: 2 }}>
+              <Grid container spacing={2} sx={{ mb: 2, p: 2 ,  borderRadius: 2, display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center', }}>
                 <Grid item xs={12} sm={7}>
                   <Box
                     sx={{
@@ -336,6 +342,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
+                     
                     }}
                   >
                     {userProfile.photos[0] ? (
@@ -377,6 +384,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        
                       }}
                     >
                       {userProfile.photos[1] ? (
