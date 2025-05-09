@@ -106,7 +106,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
         <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', textAlign: 'center' }}>
           {signupStep === 1 && (
             <>
-              <Box sx={{ mb: 2 }}>
+              <Box sx={{ mb: 4, mt: 2 }}>
                 <Typography variant="h2" sx={{ fontSize: { xs: '24px', sm: '30px' }, fontWeight: 550, color: '#6D53F4' }}>
                   Tell Us About Yourself
                 </Typography>
@@ -121,6 +121,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                     backgroundColor: userProfile.gender === 'male' ? '#6D53F4' : '#F4F5F9',
                     color: userProfile.gender === 'male' ? '#FFFFFF' : '#6D53F4',
                     p: 3,
+                    mt: 2,
                     borderRadius: '50%',
                     width: { xs: '40vw', sm: '150px' },
                     height: { xs: '40vw', sm: '150px' },
@@ -157,7 +158,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
               <Button
                 onClick={handleProfileNext}
                 sx={{
-                  mt: 3,
+                  mt: 6,
                   backgroundColor: '#6D53F4',
                   fontSize: { xs: '0.8rem', sm: '0.9rem' },
                   fontWeight: 400,
@@ -212,6 +213,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                   '&:hover': { backgroundColor: '#5C45D3' },
                   px: 4,
                   py: 1.5,
+                  mt: 12,
                   borderRadius: 50,
                 }}
               >
@@ -308,7 +310,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                   px: 4,
                   py: 1.5,
                   borderRadius: 50,
-                  mt: 16,
+                  mt: 18,
                 }}
               >
                 Next
@@ -432,6 +434,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                   '&:hover': { backgroundColor: '#5C45D3' },
                   px: 4,
                   py: 1.5,
+                  mt: 6,
                   borderRadius: 50,
                 }}
               >
