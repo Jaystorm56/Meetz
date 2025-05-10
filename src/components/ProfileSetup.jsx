@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AppBar, Toolbar, IconButton, Button, TextField, Typography, Box, Grid, Modal, LinearProgress } from '@mui/material';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -24,6 +24,10 @@ const interestsList = [
 const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, token, setActiveTab, setLoading, calculateAge, handleProfileChange, handleInterestToggle, handlePhotoUpload, fileInputRefs }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [signupStep]);
 
   const handleProfileNext = () => {
     if (signupStep === 1 && !userProfile.gender) {

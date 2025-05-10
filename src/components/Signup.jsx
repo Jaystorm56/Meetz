@@ -8,6 +8,7 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordError, setPasswordError] = useState('');
   const [focusedPassword, setFocusedPassword] = useState(false);  // Track focus on password input
+  const [emailError, setEmailError] = useState('');
 
   const passwordRules = {
     minLength: signupData.password.length >= 6,
@@ -15,6 +16,16 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
     number: /[0-9]/.test(signupData.password),
     specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(signupData.password),
   };
+
+  const isValidEmail = (email) => {
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return emailPattern.test(email);
+  };
+
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleSignup = () => {
     if (signupData.password !== signupData.confirmPassword) {
@@ -63,6 +74,16 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
     }
   };
 
+  const handleEmailChange = (e) => {
+    const email = e.target.value;
+    setSignupData({ ...signupData, username: email });
+    if (!isValidEmail(email)) {
+      setEmailError('Please input a valid email');
+    } else {
+      setEmailError('');
+    }
+  };
+
   // Check if the form is complete and password meets rules
   const isFormValid = () => {
     return (
@@ -85,25 +106,27 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
       <Typography variant="h4" sx={{ fontSize: 35, fontWeight: 550, color: '#6D53F4', mb: 1, textAlign: 'center' }}>
         Create Account
       </Typography>
-      <Typography variant="body2" sx={{ fontSize: 18, fontWeight: 500, mb: 4, textAlign: 'center' }}>
+      <Typography variant="body2" sx={{ fontSize: 18, fontWeight: 500, mb: 2, textAlign: 'center' }}>
         Fill your information below
       </Typography>
 
       <TextField
         label="Email"
-        InputLabelProps={{ sx: { fontSize: '18px' } }}
+        InputLabelProps={{ sx: { fontSize: '16px' } }}
         value={signupData.username}
-        onChange={(e) => setSignupData({ ...signupData, username: e.target.value })}
+        onChange={handleEmailChange}
         fullWidth
         sx={{
           mb: 2, mt: 4, borderRadius: 2,
           '& .MuiOutlinedInput-root': { borderRadius: 2, fontSize: 20, backgroundColor: '#f4f5f9' },
         }}
+        error={!!emailError}
+        helperText={emailError && <Typography sx={{ color: '#D32F2F', fontSize: '14px' }}>{emailError}</Typography>}
       />
 
       <TextField
         label="Password"
-        InputLabelProps={{ sx: { fontSize: '18px' } }}
+        InputLabelProps={{ sx: { fontSize: '16px' } }}
         type={showPassword ? 'text' : 'password'}
         value={signupData.password}
         onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
@@ -145,7 +168,7 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
 
       <TextField
         label="Confirm Password"
-        InputLabelProps={{ sx: { fontSize: '18px' } }}
+        InputLabelProps={{ sx: { fontSize: '16px' } }}
         type={showConfirmPassword ? 'text' : 'password'}
         value={signupData.confirmPassword || ''}
         onChange={(e) => handleConfirmPasswordChange(e.target.value)}
@@ -170,7 +193,7 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
 
       <TextField
         label="First Name"
-        InputLabelProps={{ sx: { fontSize: '18px' } }}
+        InputLabelProps={{ sx: { fontSize: '16px' } }}
         value={signupData.firstName}
         onChange={(e) => setSignupData({ ...signupData, firstName: e.target.value })}
         fullWidth
@@ -179,7 +202,7 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
 
       <TextField
         label="Last Name"
-        InputLabelProps={{ sx: { fontSize: '18px' } }}
+        InputLabelProps={{ sx: { fontSize: '16px' } }}
         value={signupData.lastName}
         onChange={(e) => setSignupData({ ...signupData, lastName: e.target.value })}
         fullWidth
@@ -210,7 +233,7 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
           fontWeight: 400,
           color: '#FFFFFF',
           '&:hover': { backgroundColor: isFormValid() ? '#5C45D3' : '#B0B0B0' },
-          mb: 3,
+          mb: 1,
           borderRadius: 50,
           px: 4,
           py: 1.5,

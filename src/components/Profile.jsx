@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { Card, CardContent, List, ListItem, ListItemText, TextField, IconButton, Button, Box } from '@mui/material';
 import { Person, Edit, ChevronRight, Policy } from '@mui/icons-material';
 import { GoPerson } from "react-icons/go";
@@ -10,6 +10,10 @@ const API_URL = 'https://meetz-api.onrender.com';
 const Profile = ({ userProfile, setUserProfile, isEditingProfile, setIsEditingProfile, token, setToken, setActiveTab, setLoading, handlePhotoUpload, capitalizeName }) => {
   const fileInputRefs = useRef([]);
   const profileContainerRef = useRef(null);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []); 
 
   const handleSaveProfile = () => {
     setLoading(true);

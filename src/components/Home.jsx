@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { Card, IconButton } from '@mui/material';
 import { Close, Favorite, Person } from '@mui/icons-material';
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
@@ -10,6 +10,10 @@ const API_URL = 'https://meetz-api.onrender.com';
 
 const Home = ({ users, currentIndex, setCurrentIndex, token, setActiveTab, setLoading, onMatch, refetchUsers }) => {
   const cardRef = useRef(null);
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scrolls to the top of the page
+  }, [currentIndex]); 
 
   const onSwipe = (direction) => {
     if (cardRef.current && cardRef.current.cardRef && cardRef.current.cardRef.current) {
