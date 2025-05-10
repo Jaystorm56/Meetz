@@ -37,7 +37,7 @@ const Login = ({ loginData, setLoginData, setToken, setActiveTab, setAuthError, 
         value={loginData.username}
         onChange={(e) => setLoginData({ ...loginData, username: e.target.value })}
         fullWidth
-        sx={{ mt: 4, borderRadius: 2, fontSize: 20, backgroundColor: '#f4f5f9', '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
+        sx={{ mt: 4, borderRadius: 2, fontSize: 16, backgroundColor: '#f4f5f9', '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
       />
       <TextField
         label="Password"
@@ -46,7 +46,7 @@ const Login = ({ loginData, setLoginData, setToken, setActiveTab, setAuthError, 
         value={loginData.password}
         onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
         fullWidth
-        sx={{ mb: 2, borderRadius: 2, fontSize: 20, backgroundColor: '#f4f5f9', '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
+        sx={{ mb: 2, borderRadius: 2, fontSize: 16, backgroundColor: '#f4f5f9', '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">

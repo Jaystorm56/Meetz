@@ -118,7 +118,7 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
         fullWidth
         sx={{
           mb: 2, mt: 4, borderRadius: 2,
-          '& .MuiOutlinedInput-root': { borderRadius: 2, fontSize: 20, backgroundColor: '#f4f5f9' },
+          '& .MuiOutlinedInput-root': { borderRadius: 2, fontSize: 16, backgroundColor: '#f4f5f9' },
         }}
         error={!!emailError}
         helperText={emailError && <Typography sx={{ color: '#D32F2F', fontSize: '14px' }}>{emailError}</Typography>}
@@ -133,7 +133,7 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
         fullWidth
         sx={{
           mb: 2, borderRadius: 2,
-          '& .MuiOutlinedInput-root': { borderRadius: 2, fontSize: 20, backgroundColor: '#f4f5f9' },
+          '& .MuiOutlinedInput-root': { borderRadius: 2, fontSize: 16, backgroundColor: '#f4f5f9' },
         }}
         onFocus={() => setFocusedPassword(true)}  // Show password rules when focused
         onBlur={() => setFocusedPassword(false)}  // Hide password rules when focus is lost
@@ -175,7 +175,7 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
         fullWidth
         sx={{
           mb: 2, borderRadius: 2,
-          '& .MuiOutlinedInput-root': { borderRadius: 2, fontSize: 20, backgroundColor: '#f4f5f9' },
+          '& .MuiOutlinedInput-root': { borderRadius: 2, fontSize: 16, backgroundColor: '#f4f5f9' },
         }}
         InputProps={{
           endAdornment: (
@@ -197,7 +197,7 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
         value={signupData.firstName}
         onChange={(e) => setSignupData({ ...signupData, firstName: e.target.value })}
         fullWidth
-        sx={{ mb: 2, borderRadius: 2, '& .MuiOutlinedInput-root': { fontSize: 20, borderRadius: 2, backgroundColor: '#f4f5f9' } }}
+        sx={{ mb: 2, borderRadius: 2, '& .MuiOutlinedInput-root': { fontSize: 16, borderRadius: 2, backgroundColor: '#f4f5f9' } }}
       />
 
       <TextField
@@ -206,7 +206,7 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
         value={signupData.lastName}
         onChange={(e) => setSignupData({ ...signupData, lastName: e.target.value })}
         fullWidth
-        sx={{ mb: 3, borderRadius: 2, '& .MuiOutlinedInput-root': { fontSize: 20, borderRadius: 2, backgroundColor: '#f4f5f9' } }}
+        sx={{ mb: 3, borderRadius: 2, '& .MuiOutlinedInput-root': { fontSize: 16, borderRadius: 2, backgroundColor: '#f4f5f9' } }}
       />
 
       <FormControlLabel
