@@ -241,173 +241,65 @@ function App() {
     setLoading(false);
   };
 
-  if (signupStep === 0) {
+  if (signupStep > 0) {
     return (
-      <div className="min-h-screen bg-background flex flex-col text-secondary p-4">
-        {activeTab === 'Welcome' && <Welcome setActiveTab={setActiveTab} />}
-        {activeTab === 'Login' && (
-          <Login
-            loginData={loginData}
-            setLoginData={setLoginData}
-            setActiveTab={setActiveTab}
-            setAuthError={setAuthError}
-            setLoading={setLoading}
-          />
-        )}
-        {activeTab === 'Signup' && signupStep === 0 && (
-          <Signup
-            signupData={signupData}
-            setSignupData={setSignupData}
-            setSignupStep={setSignupStep}
-            setActiveTab={setActiveTab}
-            setLoading={setLoading}
-            showPassword={showPassword}
-            setShowPassword={setShowPassword}
-            capitalizeName={capitalizeName}
-            setAuthError={setAuthError}
-          />
-        )}
-        {signupStep > 0 && (
-          <ProfileSetup
-            signupStep={signupStep}
-            setSignupStep={setSignupStep}
-            userProfile={userProfile}
-            setUserProfile={setUserProfile}
-            calculateAge={calculateAge}
-            handleProfileChange={handleProfileChange}
-            handleInterestToggle={handleInterestToggle}
-            handlePhotoUpload={handlePhotoUpload}
-            fileInputRefs={fileInputRefs}
-          />
-        )}
-        {activeTab === 'Forgot' && (
-          <ForgotPassword
-            forgotData={forgotData}
-            setForgotData={setForgotData}
-            resetData={resetData}
-            setResetData={setResetData}
-            resetToken={resetToken}
-            setActiveTab={setActiveTab}
-            setAuthError={setAuthError}
-            setLoading={setLoading}
-          />
-        )}
-        {authError && <Typography color="error" className="text-center mt-2">{authError}</Typography>}
-        {loading && <Loader />}
-      </div>
+      <ProfileSetup
+        signupStep={signupStep}
+        setSignupStep={setSignupStep}
+        userProfile={userProfile}
+        setUserProfile={setUserProfile}
+        calculateAge={calculateAge}
+        handleProfileChange={handleProfileChange}
+        handleInterestToggle={handleInterestToggle}
+        handlePhotoUpload={handlePhotoUpload}
+        fileInputRefs={fileInputRefs}
+        setActiveTab={setActiveTab}
+        setLoading={setLoading}
+      />
     );
   }
 
+  // Otherwise, show the normal signup/login/welcome flow
   return (
-    <NotificationProvider userProfile={userProfile} token={null}>
-      <div className="min-h-screen bg-background flex flex-col text-secondary">
-        {/* Hide the AppBar when on the Chat tab (both ChatScreen and ChatList) or Matches tab */}
-        {activeTab !== 'Chat' && activeTab !== 'Matches' && (
-          <AppBar position="static" sx={{ backgroundColor: '#6D53F4' }}>
-            <Toolbar>
-              {activeTab !== 'Home' && (
-                <IconButton edge="start" color="inherit" onClick={handleBackClick} sx={{ color: '#FFFFFF' }}>
-                  <ArrowBack />
-                </IconButton>
-              )}
-              {activeTab === 'Home' ? (
-                <img src={meetzLogoBg} alt="MEETZ Logo" className="nav-item h-[77px]" />
-              ) : (
-                <h2 className="text-xl font-bold text-white flex-grow text-center">{isEditingProfile ? 'Edit Profile' : activeTab}</h2>
-              )}
-              {activeTab === 'Home' && <div className="flex-grow" />}
-              <IconButton edge="end" color="inherit" onClick={activeTab === 'Home' ? handleOpenFilter : () => console.log('Search - Coming soon!')} sx={{ color: '#FFFFFF', fontSize: '35px' }}>
-                {activeTab === 'Home' ? <LuSettings2  /> : <Search />}
-              </IconButton>
-            </Toolbar>
-          </AppBar>
-        )}
-
-        {/* Conditionally apply padding and margin based on whether ChatScreen or ChatList is active */}
-        <div
-          className={`flex-grow flex justify-center ${
-            activeTab === 'Chat' && selectedUser
-              ? 'p-0 m-0'
-              : activeTab === 'Chat' || activeTab === 'Matches'
-              ? 'p-0 mb-16'
-              : 'p-4 mb-16'
-          }`}
-        >
-          {activeTab === 'Home' && (
-            <Home
-              users={users}
-              currentIndex={currentIndex}
-              setCurrentIndex={setCurrentIndex}
-              token={null}
-              setActiveTab={setActiveTab}
-              setLoading={setLoading}
-              onMatch={handleMatch}
-              refetchUsers={refetchUsers}
-            />
-          )}
-          {activeTab === 'Matches' && (
-            <Matches
-              matches={matches}
-              setActiveTab={setActiveTab}
-              setSelectedUser={setSelectedUser}
-            />
-          )}
-          {activeTab === 'Chat' && (
-            <Chat
-              selectedUser={selectedUser}
-              setSelectedUser={setSelectedUser}
-              chatMessages={chatMessages}
-              setChatMessages={setChatMessages}
-              allChatMessages={allChatMessages}
-              setAllChatMessages={setAllChatMessages}
-              userProfile={userProfile}
-              messageInput={messageInput}
-              setMessageInput={setMessageInput}
-              token={null}
-              setLoading={setLoading}
-            />
-          )}
-          {activeTab === 'Profile' && (
-            <Profile
-              userProfile={userProfile}
-              setUserProfile={setUserProfile}
-              isEditingProfile={isEditingProfile}
-              setIsEditingProfile={setIsEditingProfile}
-              token={null}
-              setToken={() => {}}
-              setActiveTab={setActiveTab}
-              setLoading={setLoading}
-              handlePhotoUpload={handlePhotoUpload}
-              capitalizeName={capitalizeName}
-            />
-          )}
-        </div>
-
-        <MatchedModal
-          open={showMatchedModal}
-          onClose={() => setShowMatchedModal(false)}
-          currentUser={userProfile}
-          matchedUser={matchedUser}
+    <div className="min-h-screen bg-background flex flex-col text-secondary p-4">
+      {activeTab === 'Welcome' && <Welcome setActiveTab={setActiveTab} />}
+      {activeTab === 'Login' && (
+        <Login
+          loginData={loginData}
+          setLoginData={setLoginData}
           setActiveTab={setActiveTab}
-          setSelectedUser={setSelectedUser}
+          setAuthError={setAuthError}
+          setLoading={setLoading}
         />
-
-        {/* Filter Modal */}
-        <FilterModal
-          open={showFilterModal}
-          onClose={handleCloseFilter}
-          filters={filters}
-          onChange={handleFilterChange}
-          onReset={handleFilterReset}
-          onApply={handleFilterApply}
+      )}
+      {activeTab === 'Signup' && signupStep === 0 && (
+        <Signup
+          signupData={signupData}
+          setSignupData={setSignupData}
+          setSignupStep={setSignupStep}
+          setActiveTab={setActiveTab}
+          setLoading={setLoading}
+          showPassword={showPassword}
+          setShowPassword={setShowPassword}
+          capitalizeName={capitalizeName}
+          setAuthError={setAuthError}
         />
-
-        {!(activeTab === 'Chat' && selectedUser) && (
-          <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
-        )}
-        {loading && <Loader />}
-      </div>
-    </NotificationProvider>
+      )}
+      {activeTab === 'Forgot' && (
+        <ForgotPassword
+          forgotData={forgotData}
+          setForgotData={setForgotData}
+          resetData={resetData}
+          setResetData={setResetData}
+          resetToken={resetToken}
+          setActiveTab={setActiveTab}
+          setAuthError={setAuthError}
+          setLoading={setLoading}
+        />
+      )}
+      {authError && <Typography color="error" className="text-center mt-2">{authError}</Typography>}
+      {loading && <Loader />}
+    </div>
   );
 }
 
