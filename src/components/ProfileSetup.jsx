@@ -21,7 +21,7 @@ const interestsList = [
   { name: 'Cars', icon: <DirectionsCar /> },
 ];
 
-const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, token, setActiveTab, setLoading, calculateAge, handleProfileChange, handleInterestToggle, handlePhotoUpload, fileInputRefs }) => {
+const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, token, setActiveTab, setLoading, calculateAge, handleProfileChange, handleInterestToggle, handlePhotoUpload, fileInputRefs, refetchUsers }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
 
@@ -56,6 +56,7 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
         .then(() => {
           setActiveTab('Home');
           setSignupStep(0);
+          if (typeof refetchUsers === 'function') refetchUsers();
         })
         .catch(err => console.error('Error saving profile:', err))
         .finally(() => setLoading(false));

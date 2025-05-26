@@ -257,6 +257,7 @@ function App() {
         fileInputRefs={fileInputRefs}
         setActiveTab={setActiveTab}
         setLoading={setLoading}
+        refetchUsers={refetchUsers}
       />
     );
   }
