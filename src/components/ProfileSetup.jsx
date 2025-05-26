@@ -244,8 +244,8 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
                     <Button
                       onClick={() => handleInterestToggle(interest.name)}
                       sx={{
-                        backgroundColor: userProfile.interests.includes(interest.name) ? '#6D53F4' : '#F4F5F9',
-                        color: userProfile.interests.includes(interest.name) ? '#FFFFFF' : '#6D53F4',
+                        backgroundColor: (userProfile.interests || []).includes(interest.name) ? '#6D53F4' : '#F4F5F9',
+                        color: (userProfile.interests || []).includes(interest.name) ? '#FFFFFF' : '#6D53F4',
                         p: 2,
                         borderRadius: 4,
                         width: '100%',
