@@ -50,15 +50,27 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
       body: JSON.stringify(formattedData),
       credentials: 'include'
     })
-      .then(res => res.json())
-      .then(data => {
-        if (data.error) setAuthError(data.error);
-        else {
+      .then(async res => {
+        let data;
+        try {
+          data = await res.json();
+        } catch (e) {
+          setAuthError('Invalid server response');
+          setLoading(false);
+          return;
+        }
+        console.log('Signup response:', res.status, data);
+        if (!res.ok) {
+          setAuthError(data.error || 'Signup failed');
+        } else {
           setSignupStep(1);
           setAuthError('');
         }
       })
-      .catch(() => setAuthError('Signup failed'))
+      .catch((err) => {
+        setAuthError('Signup failed');
+        console.error('Signup error:', err);
+      })
       .finally(() => setLoading(false));
   };
 
