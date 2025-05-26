@@ -11,7 +11,6 @@ import MatchProfile from './MatchProfile';
 const API_URL = 'https://meetz-api.onrender.com';
 
 const Home = ({ users, currentIndex, setCurrentIndex, token, setActiveTab, setLoading, onMatch, refetchUsers }) => {
-  console.log('Home component rendered', users);
   const cardRef = useRef(null);
   const [showMatchProfile, setShowMatchProfile] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
