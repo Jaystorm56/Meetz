@@ -258,6 +258,7 @@ function App() {
           <Signup
             signupData={signupData}
             setSignupData={setSignupData}
+            setSignupStep={setSignupStep}
             setActiveTab={setActiveTab}
             setLoading={setLoading}
             showPassword={showPassword}
