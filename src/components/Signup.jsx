@@ -48,6 +48,7 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formattedData),
+      credentials: 'include'
     })
       .then(res => res.json())
       .then(data => {

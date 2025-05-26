@@ -1,19 +1,24 @@
-import { useRef, useEffect } from 'react';
-import { Card, IconButton } from '@mui/material';
+import { useState, useRef, useEffect } from 'react';
+import { Card, IconButton, Modal, Box } from '@mui/material';
 import { Close, Favorite, Person } from '@mui/icons-material';
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
 import { LuHeartHandshake } from "react-icons/lu";
 import TinderCard from 'react-tinder-card';
 import { gsap } from 'gsap';
+import Draggable from 'gsap/Draggable';
+import MatchProfile from './MatchProfile';
 
 const API_URL = 'https://meetz-api.onrender.com';
 
 const Home = ({ users, currentIndex, setCurrentIndex, token, setActiveTab, setLoading, onMatch, refetchUsers }) => {
   const cardRef = useRef(null);
+  const [showMatchProfile, setShowMatchProfile] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
     window.scrollTo(0, 0); // Scrolls to the top of the page
-  }, [currentIndex]); 
+    gsap.registerPlugin(Draggable);
+  }, [currentIndex]);
 
   const onSwipe = (direction) => {
     if (cardRef.current && cardRef.current.cardRef && cardRef.current.cardRef.current) {
@@ -31,14 +36,14 @@ const Home = ({ users, currentIndex, setCurrentIndex, token, setActiveTab, setLo
       if (direction === 'right') {
         fetch(`${API_URL}/likes`, { 
           method: 'POST', 
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, 
-          body: JSON.stringify({ userId: user._id })
+          headers: { 'Content-Type': 'application/json' }, 
+          body: JSON.stringify({ userId: user._id }),
+          credentials: 'include'
         })
           .then(res => res.json())
           .then(data => {
             if (data.match) {
               onMatch(user);
-              // Refetch users to update the swipe list after a match
               refetchUsers();
             }
           })
@@ -52,7 +57,21 @@ const Home = ({ users, currentIndex, setCurrentIndex, token, setActiveTab, setLo
     if (cardRef.current) cardRef.current.swipe(direction);
   };
 
-  const handleChatClick = () => setActiveTab('Chat');
+  const handleChatClick = (event) => {
+    event.stopPropagation();
+    setActiveTab('Chat');
+  };
+
+  const handleCardClick = (user) => {
+    console.log("its clicking");
+    setSelectedUser(user);
+    setShowMatchProfile(true);
+  };
+
+  const handleMatch = (user) => {
+    setSelectedUser(user);
+    setShowMatchProfile(true);
+  };
 
   return (
     <>
@@ -67,25 +86,24 @@ const Home = ({ users, currentIndex, setCurrentIndex, token, setActiveTab, setLo
             className={`absolute w-[93%] max-w-md ${index === currentIndex ? 'z-10' : 'z-0'}`}
             sx={{ flexGrow: 1 }}
           >
-            <Card className="shadow-lg h-[460px] rounded-lg overflow-hidden " sx={{  height: {
-                    xs: '460px', // < 414px
-                    sm: '530px', // ≥ 414px
-                    minHeight: '400px',
-                    '@media (max-width: 413.99px)': {
-                    height: '460px',
-                  },
-                  '@media (min-width: 414px)': {
-                    height: '530px',
-                  },
-                  } }}>
-              {/* Background Image or Placeholder */}
+            <Card
+              onClick={() => handleCardClick(user)}
+              className="shadow-lg h-[460px] rounded-lg overflow-hidden"
+              sx={{
+                height: {
+                  xs: '460px', // < 414px
+                  sm: '530px', // ≥ 414px
+                  minHeight: '400px',
+                  '@media (max-width: 413.99px)': { height: '460px' },
+                  '@media (min-width: 414px)': { height: '530px' },
+                }
+              }}
+            >
               <div className="relative h-full w-full">
                 {user.photos && user.photos[0] ? (
                   <div
                     className="h-full w-full bg-cover bg-center"
-                    style={{
-                      backgroundImage: `url(${user.photos[0]})`,
-                    }}
+                    style={{ backgroundImage: `url(${user.photos[0]})` }}
                   />
                 ) : (
                   <div className="relative h-full w-full">
@@ -95,21 +113,16 @@ const Home = ({ users, currentIndex, setCurrentIndex, token, setActiveTab, setLo
                     <div className="absolute inset-0 bg-gradient-to-t from-[#6D53F4] to-[#A78BFA] opacity-50"></div>
                   </div>
                 )}
-                {/* Gradient Overlay at the Bottom */}
                 <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black to-transparent opacity-80"></div>
-
-                {/* Text Overlay */}
                 <div className="absolute bottom-16 left-4 right-4 text-white">
                   <h2 className="text-3xl font-bold">{user.firstName}, {user.age}</h2>
                   <p className="text-sm sm:text-sm">{user.bio}</p>
                 </div>
-
-                {/* Icon Buttons */}
                 <div className="absolute bottom-2 left-0 right-0 flex justify-around">
                   <IconButton onClick={(e) => handleIconClick('left', e)} sx={{ color: 'red', backgroundColor: 'rgba(255, 255, 255, 0.8)', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 1)' } }}>
                     <Close fontSize="large" />
                   </IconButton>
-                  <IconButton onClick={handleChatClick} sx={{ color: 'green', backgroundColor: 'rgba(255, 255, 255, 0.8)', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 1)' } }}>
+                  <IconButton onClick={(e) => handleChatClick(e)} sx={{ color: 'green', backgroundColor: 'rgba(255, 255, 255, 0.8)', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 1)' } }}>
                     <IoChatboxEllipsesOutline fontSize="35px" />
                   </IconButton>
                   <IconButton onClick={(e) => handleIconClick('right', e)} sx={{ color: '#6D53F4', backgroundColor: 'rgba(255, 255, 255, 0.8)', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 1)' } }}>
@@ -122,6 +135,9 @@ const Home = ({ users, currentIndex, setCurrentIndex, token, setActiveTab, setLo
         )
       ))}
       {currentIndex < 0 && <p className="text-center text-secondary">No more profiles to swipe!</p>}
+      <Modal open={showMatchProfile} onClose={() => setShowMatchProfile(false)} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', pt: '80px', pb: '68px' }}>
+        <MatchProfile user={selectedUser} onClose={() => setShowMatchProfile(false)} />
+      </Modal>
     </>
   );
 };

@@ -10,6 +10,7 @@ const socket = io(API_URL, { transports: ['websocket'] });
 const ChatScreen = ({ selectedUser, setSelectedUser, userProfile, chatMessages, setChatMessages, allChatMessages, setAllChatMessages, messageInput, setMessageInput, token, setLoading }) => {
   const chatContainerRef = useRef(null);
   const [chatId] = useState([userProfile._id, selectedUser._id].sort().join(':'));
+  const sentMessagesRef = useRef(new Set());
 
   // Fetch initial messages
   useEffect(() => {
@@ -21,27 +22,41 @@ const ChatScreen = ({ selectedUser, setSelectedUser, userProfile, chatMessages, 
       .then(messages => {
         setChatMessages(messages);
         setAllChatMessages(prev => ({ ...prev, [selectedUser._id]: messages }));
+        // Position at bottom without animation
+        if (chatContainerRef.current) {
+          chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        }
       })
       .catch(err => console.error('Error fetching messages:', err))
       .finally(() => setLoading(false));
   }, [selectedUser, token, setChatMessages, setAllChatMessages, setLoading]);
+
+  // Position at bottom when messages change
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [chatMessages]);
 
   // Set up WebSocket connection
   useEffect(() => {
     socket.emit('joinChat', chatId);
 
     socket.on('receiveMessage', (message) => {
-      if (message.senderId === userProfile._id) return;
+      // Check if we've already processed this message
+      const messageId = `${message.senderId}-${message.timestamp}`;
+      if (sentMessagesRef.current.has(messageId)) {
+        return;
+      }
 
-      setChatMessages(prev => [...prev, message]);
-      setAllChatMessages(prev => ({
-        ...prev,
-        [selectedUser._id]: [...(prev[selectedUser._id] || []), message],
-      }));
-      chatContainerRef.current?.scrollTo({
-        top: chatContainerRef.current.scrollHeight,
-        behavior: 'smooth',
-      });
+      // Only add to state if we're the receiver
+      if (message.senderId !== userProfile._id) {
+        setChatMessages(prev => [...prev, message]);
+        setAllChatMessages(prev => ({
+          ...prev,
+          [selectedUser._id]: [...(prev[selectedUser._id] || []), message],
+        }));
+      }
     });
 
     return () => {
@@ -49,36 +64,42 @@ const ChatScreen = ({ selectedUser, setSelectedUser, userProfile, chatMessages, 
     };
   }, [chatId, selectedUser, userProfile._id, setChatMessages, setAllChatMessages]);
 
-  const handleSendMessage = () => {
-    if (messageInput.trim()) {
-      const messageData = {
-        chatId,
-        senderId: userProfile._id,
-        recipientId: selectedUser._id,
-        text: messageInput,
-        timestamp: new Date().toISOString(),
-        type: 'text',
-      };
+  const handleSendMessage = async () => {
+    if (!messageInput.trim()) return;
 
-      setChatMessages(prev => [...prev, messageData]);
-      setAllChatMessages(prev => ({
-        ...prev,
-        [selectedUser._id]: [...(prev[selectedUser._id] || []), messageData],
-      }));
-      setMessageInput('');
+    const timestamp = new Date().toISOString();
+    const messageData = {
+      chatId,
+      senderId: userProfile._id,
+      recipientId: selectedUser._id,
+      text: messageInput.trim(),
+      timestamp,
+      type: 'text',
+    };
 
-      socket.emit('sendMessage', messageData);
-
-      fetch(`${API_URL}/messages/${selectedUser._id}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify({ text: messageInput }),
-      })
-        .catch(err => console.error('Error sending message via HTTP:', err));
+    // Generate a unique message ID
+    const messageId = `${messageData.senderId}-${timestamp}`;
+    
+    // Check if we've already sent this message
+    if (sentMessagesRef.current.has(messageId)) {
+      return;
     }
+
+    // Add to sent messages set immediately
+    sentMessagesRef.current.add(messageId);
+
+    // Clear input immediately for better UX
+    setMessageInput('');
+
+    // Add to state immediately
+    setChatMessages(prev => [...prev, messageData]);
+    setAllChatMessages(prev => ({
+      ...prev,
+      [selectedUser._id]: [...(prev[selectedUser._id] || []), messageData],
+    }));
+
+    // Send message through socket.io only
+    socket.emit('sendMessage', messageData);
   };
 
   // Group messages by date for the divider

@@ -49,8 +49,9 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
       setLoading(true);
       fetch(`${API_URL}/profile`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userProfile),
+        credentials: 'include'
       })
         .then(() => {
           setActiveTab('Home');

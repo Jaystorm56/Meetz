@@ -17,7 +17,7 @@ const ForgotPassword = ({ forgotData, setForgotData, resetData, setResetData, re
 
   const handleResetPassword = () => {
     setLoading(true);
-    fetch(`${API_URL}/reset-password`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(resetData) })
+    fetch(`${API_URL}/reset-password`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(resetData), credentials: 'include' })
       .then(res => res.json())
       .then(data => {
         if (data.error) setAuthError(data.error);

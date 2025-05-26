@@ -1,5 +1,5 @@
-import { useRef, useEffect } from 'react';
-import { Card, CardContent, List, ListItem, ListItemText, TextField, IconButton, Button, Box } from '@mui/material';
+import { useRef, useEffect, useState } from 'react';
+import { Card, CardContent, List, ListItem, ListItemText, TextField, IconButton, Button, Box, Modal, Typography } from '@mui/material';
 import { Person, Edit, ChevronRight, Policy } from '@mui/icons-material';
 import { GoPerson } from "react-icons/go";
 import { GrSettingsOption } from "react-icons/gr";
@@ -10,6 +10,7 @@ const API_URL = 'https://meetz-api.onrender.com';
 const Profile = ({ userProfile, setUserProfile, isEditingProfile, setIsEditingProfile, token, setToken, setActiveTab, setLoading, handlePhotoUpload, capitalizeName }) => {
   const fileInputRefs = useRef([]);
   const profileContainerRef = useRef(null);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -18,9 +19,10 @@ const Profile = ({ userProfile, setUserProfile, isEditingProfile, setIsEditingPr
   const handleSaveProfile = () => {
     setLoading(true);
     fetch(`${API_URL}/profile`, { 
-      method: 'POST', 
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, 
-      body: JSON.stringify(userProfile) 
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(userProfile),
+      credentials: 'include'
     })
       .then(() => {
         setIsEditingProfile(false);
@@ -124,7 +126,7 @@ const Profile = ({ userProfile, setUserProfile, isEditingProfile, setIsEditingPr
             </ListItem>
             <ListItem 
               button 
-              onClick={handleLogout} 
+              onClick={() => setShowLogoutModal(true)}
               sx={{ borderBottom: '1px solid #E0E0E0', marginTop: '10px', px:'0px', py: { xs: 1.5, sm: 2 } }}
             >
               <IoExit size={32} style={{ color: '#6D53F4', marginRight: 12 }} />
@@ -136,6 +138,26 @@ const Profile = ({ userProfile, setUserProfile, isEditingProfile, setIsEditingPr
             </ListItem>
           </List>
         </div>
+        <Modal open={showLogoutModal} onClose={() => setShowLogoutModal(false)}>
+          <Box sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            bgcolor: '#fff',
+            borderRadius: 2,
+            boxShadow: 24,
+            p: 4,
+            minWidth: 300,
+            textAlign: 'center',
+          }}>
+            <Typography variant="h6" sx={{ mb: 2 }}>Are you sure you want to logout?</Typography>
+            <Box display="flex" justifyContent="center" gap={2} mt={2}>
+              <Button variant="contained" color="primary" sx={{ background: '#6D53F4', borderRadius: 3 }} onClick={handleLogout}>Yes</Button>
+              <Button variant="outlined" sx={{ borderRadius: 3, color: '#6D53F4', borderColor: '#6D53F4' }} onClick={() => setShowLogoutModal(false)}>No</Button>
+            </Box>
+          </Box>
+        </Modal>
       </div>
     );
   }

@@ -20,6 +20,7 @@ import Profile from './components/Profile';
 import Navbar from './components/Navbar';
 import MatchedModal from './components/MatchedModal';
 import { NotificationProvider } from './components/NotificationProvider';
+import FilterModal from './components/FilterModal';
 
 const API_URL = 'https://meetz-api.onrender.com';
 
@@ -35,7 +36,6 @@ function App() {
   const [allChatMessages, setAllChatMessages] = useState({});
   const [userProfile, setUserProfile] = useState({ firstName: '', lastName: '', age: 0, bio: '', gender: '', interests: [], photos: [], dob: null });
   const [isEditingProfile, setIsEditingProfile] = useState(false);
-  const [token, setToken] = useState(null);
   const [loginData, setLoginData] = useState({ username: '', password: '' });
   const [signupData, setSignupData] = useState({ username: '', password: '', firstName: '', lastName: '', termsAgreed: false });
   const [signupStep, setSignupStep] = useState(0);
@@ -47,12 +47,22 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [showMatchedModal, setShowMatchedModal] = useState(false);
   const [matchedUser, setMatchedUser] = useState(null);
+  const [showFilterModal, setShowFilterModal] = useState(false);
+  const [filters, setFilters] = useState({
+    location: 'New York, USA',
+    interestedIn: 'Women',
+    sortBy: 'Online',
+    distance: [0, 20],
+    age: [18, 48],
+  });
 
   // Function to refetch users
   const refetchUsers = () => {
-    if (token && signupStep === 0) {
+    if (signupStep === 0) {
       setLoading(true);
-      fetch(`${API_URL}/users`, { headers: { 'Authorization': `Bearer ${token}` } })
+      fetch(`${API_URL}/users`, { 
+        credentials: 'include',
+      })
         .then(res => res.json())
         .then(data => {
           setUsers(data);
@@ -65,9 +75,11 @@ function App() {
 
   // Function to refetch matches
   const refetchMatches = () => {
-    if (token && signupStep === 0) {
+    if (signupStep === 0) {
       setLoading(true);
-      fetch(`${API_URL}/matches`, { headers: { 'Authorization': `Bearer ${token}` } })
+      fetch(`${API_URL}/matches`, { 
+        credentials: 'include',
+      })
         .then(res => res.json())
         .then(data => setMatches(data))
         .catch(err => console.error('Error refetching matches:', err))
@@ -77,33 +89,37 @@ function App() {
 
   // Fetch profile on app load
   useEffect(() => {
-    if (token && signupStep === 0) {
+    if (signupStep === 0) {
       setLoading(true);
-      fetch(`${API_URL}/profile`, { headers: { 'Authorization': `Bearer ${token}` } })
+      fetch(`${API_URL}/profile`, { 
+        credentials: 'include',
+      })
         .then(res => res.json())
         .then(data => setUserProfile(data))
         .catch(err => console.error('Error fetching profile:', err))
         .finally(() => setLoading(false));
     }
-  }, [token, signupStep]);
+  }, [signupStep]);
 
   // Fetch users on app load
   useEffect(() => {
     refetchUsers();
-  }, [token, signupStep]);
+  }, [signupStep]);
 
   // Fetch matches when on Matches or Chat tab
   useEffect(() => {
-    if (token && signupStep === 0 && (activeTab === 'Matches' || (activeTab === 'Chat' && !selectedUser))) {
+    if (signupStep === 0 && (activeTab === 'Matches' || (activeTab === 'Chat' && !selectedUser))) {
       refetchMatches();
     }
-  }, [activeTab, selectedUser, token, signupStep]);
+  }, [activeTab, selectedUser, signupStep]);
 
   // Fetch all chat messages on app load to populate allChatMessages
   useEffect(() => {
-    if (token && signupStep === 0) {
+    if (signupStep === 0) {
       setLoading(true);
-      fetch(`${API_URL}/messages`, { headers: { 'Authorization': `Bearer ${token}` } })
+      fetch(`${API_URL}/messages`, { 
+        credentials: 'include',
+      })
         .then(res => {
           if (!res.ok) {
             throw new Error(`HTTP error! Status: ${res.status}`);
@@ -124,7 +140,7 @@ function App() {
         })
         .finally(() => setLoading(false));
     }
-  }, [token, signupStep]);
+  }, [signupStep]);
 
   const capitalizeName = (str) => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 
@@ -197,7 +213,35 @@ function App() {
     refetchMatches();
   };
 
-  if (!token || signupStep > 0) {
+  const handleOpenFilter = () => setShowFilterModal(true);
+  const handleCloseFilter = () => setShowFilterModal(false);
+  const handleFilterChange = (newFilters) => setFilters(newFilters);
+  const handleFilterReset = () => setFilters({
+    location: 'New York, USA',
+    interestedIn: 'Women',
+    sortBy: 'Online',
+    distance: [0, 20],
+    age: [18, 48],
+  });
+  const handleFilterApply = () => setShowFilterModal(false);
+
+  const handleLogout = async () => {
+    setLoading(true);
+    try {
+      await fetch(`${API_URL}/logout`, {
+        method: 'POST',
+        credentials: 'include',
+      });
+    } catch (err) {
+      // Optionally handle error
+    }
+    setActiveTab('Welcome');
+    setUserProfile({ firstName: '', lastName: '', age: 0, bio: '', gender: '', interests: [], photos: [], dob: null });
+    setIsEditingProfile(false);
+    setLoading(false);
+  };
+
+  if (!signupStep > 0) {
     return (
       <div className="min-h-screen bg-background flex flex-col text-secondary p-4">
         {activeTab === 'Welcome' && <Welcome setActiveTab={setActiveTab} />}
@@ -205,7 +249,6 @@ function App() {
           <Login
             loginData={loginData}
             setLoginData={setLoginData}
-            setToken={setToken}
             setActiveTab={setActiveTab}
             setAuthError={setAuthError}
             setLoading={setLoading}
@@ -215,14 +258,12 @@ function App() {
           <Signup
             signupData={signupData}
             setSignupData={setSignupData}
-            setToken={setToken}
-            setSignupStep={setSignupStep}
-            setAuthError={setAuthError}
             setActiveTab={setActiveTab}
             setLoading={setLoading}
             showPassword={showPassword}
             setShowPassword={setShowPassword}
             capitalizeName={capitalizeName}
+            setAuthError={setAuthError}
           />
         )}
         {signupStep > 0 && (
@@ -231,9 +272,6 @@ function App() {
             setSignupStep={setSignupStep}
             userProfile={userProfile}
             setUserProfile={setUserProfile}
-            token={token}
-            setActiveTab={setActiveTab}
-            setLoading={setLoading}
             calculateAge={calculateAge}
             handleProfileChange={handleProfileChange}
             handleInterestToggle={handleInterestToggle}
@@ -260,7 +298,7 @@ function App() {
   }
 
   return (
-    <NotificationProvider userProfile={userProfile} token={token}>
+    <NotificationProvider userProfile={userProfile} token={null}>
       <div className="min-h-screen bg-background flex flex-col text-secondary">
         {/* Hide the AppBar when on the Chat tab (both ChatScreen and ChatList) or Matches tab */}
         {activeTab !== 'Chat' && activeTab !== 'Matches' && (
@@ -277,7 +315,7 @@ function App() {
                 <h2 className="text-xl font-bold text-white flex-grow text-center">{isEditingProfile ? 'Edit Profile' : activeTab}</h2>
               )}
               {activeTab === 'Home' && <div className="flex-grow" />}
-              <IconButton edge="end" color="inherit" onClick={() => console.log('Filter/Search - Coming soon!')} sx={{ color: '#FFFFFF', fontSize: '35px' }}>
+              <IconButton edge="end" color="inherit" onClick={activeTab === 'Home' ? handleOpenFilter : () => console.log('Search - Coming soon!')} sx={{ color: '#FFFFFF', fontSize: '35px' }}>
                 {activeTab === 'Home' ? <LuSettings2  /> : <Search />}
               </IconButton>
             </Toolbar>
@@ -299,7 +337,7 @@ function App() {
               users={users}
               currentIndex={currentIndex}
               setCurrentIndex={setCurrentIndex}
-              token={token}
+              token={null}
               setActiveTab={setActiveTab}
               setLoading={setLoading}
               onMatch={handleMatch}
@@ -324,7 +362,7 @@ function App() {
               userProfile={userProfile}
               messageInput={messageInput}
               setMessageInput={setMessageInput}
-              token={token}
+              token={null}
               setLoading={setLoading}
             />
           )}
@@ -334,8 +372,7 @@ function App() {
               setUserProfile={setUserProfile}
               isEditingProfile={isEditingProfile}
               setIsEditingProfile={setIsEditingProfile}
-              token={token}
-              setToken={setToken}
+              token={null}
               setActiveTab={setActiveTab}
               setLoading={setLoading}
               handlePhotoUpload={handlePhotoUpload}
@@ -351,6 +388,16 @@ function App() {
           matchedUser={matchedUser}
           setActiveTab={setActiveTab}
           setSelectedUser={setSelectedUser}
+        />
+
+        {/* Filter Modal */}
+        <FilterModal
+          open={showFilterModal}
+          onClose={handleCloseFilter}
+          filters={filters}
+          onChange={handleFilterChange}
+          onReset={handleFilterReset}
+          onApply={handleFilterApply}
         />
 
         {!(activeTab === 'Chat' && selectedUser) && (

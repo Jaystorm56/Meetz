@@ -13,7 +13,12 @@ const Login = ({ loginData, setLoginData, setToken, setActiveTab, setAuthError, 
 
   const handleLogin = () => {
     setLoading(true);
-    fetch(`${API_URL}/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(loginData) })
+    fetch(`${API_URL}/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(loginData),
+      credentials: 'include'
+    })
       .then(res => res.json())
       .then(data => {
         if (data.error) setAuthError(data.error);
