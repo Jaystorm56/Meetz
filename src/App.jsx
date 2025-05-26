@@ -241,7 +241,7 @@ function App() {
     setLoading(false);
   };
 
-  if (!signupStep > 0) {
+  if (signupStep === 0) {
     return (
       <div className="min-h-screen bg-background flex flex-col text-secondary p-4">
         {activeTab === 'Welcome' && <Welcome setActiveTab={setActiveTab} />}
@@ -374,6 +374,7 @@ function App() {
               isEditingProfile={isEditingProfile}
               setIsEditingProfile={setIsEditingProfile}
               token={null}
+              setToken={() => {}}
               setActiveTab={setActiveTab}
               setLoading={setLoading}
               handlePhotoUpload={handlePhotoUpload}
