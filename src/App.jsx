@@ -56,6 +56,8 @@ function App() {
     age: [18, 48],
   });
 
+  console.log('App state:', { signupStep, activeTab });
+
   // Function to refetch users
   const refetchUsers = () => {
     if (signupStep === 0) {
