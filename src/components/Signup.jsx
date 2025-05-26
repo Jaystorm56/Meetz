@@ -54,7 +54,6 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
       .then(data => {
         if (data.error) setAuthError(data.error);
         else {
-          setToken(data.token);
           setSignupStep(1);
           setAuthError('');
         }

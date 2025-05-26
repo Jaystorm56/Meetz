@@ -23,7 +23,6 @@ const Login = ({ loginData, setLoginData, setToken, setActiveTab, setAuthError, 
       .then(data => {
         if (data.error) setAuthError(data.error);
         else {
-          setToken(data.token);
           setActiveTab('Home');
           setAuthError('');
         }
