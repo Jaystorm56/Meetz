@@ -155,7 +155,7 @@ const ChatScreen = ({ selectedUser, setSelectedUser, userProfile, chatMessages, 
 
             {/* Messages */}
             <List>
-              {groupedMessages[date].map((msg, idx) => {
+              {(Array.isArray(groupedMessages[date]) ? groupedMessages[date] : []).map((msg, idx) => {
                 const isCurrentUser = msg.senderId === userProfile._id;
                 return (
                   <ListItem

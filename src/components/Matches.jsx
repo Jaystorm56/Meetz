@@ -55,7 +55,7 @@ const Matches = ({ matches, setActiveTab, setSelectedUser }) => {
         {/* Matches Grid */}
         {matches.length > 0 ? (
           <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 p-4">
-            {matches.map((user) => (
+            {(Array.isArray(matches) ? matches : []).map((user) => (
               <div
                 key={user._id}
                 onClick={() => {

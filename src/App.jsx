@@ -132,6 +132,7 @@ function App() {
           return res.json();
         })
         .then(data => {
+          console.log('Fetched chat messages:', data);
           setAllChatMessages(data);
         })
         .catch(err => {
