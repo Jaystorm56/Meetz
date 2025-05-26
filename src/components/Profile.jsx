@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-import { Card, CardContent, List, ListItem, ListItemText, TextField, IconButton, Button, Box, Modal, Typography } from '@mui/material';
+import { Card, CardContent, List, ListItem, ListItemText, TextField, IconButton, Button, Box, Modal, Typography, Avatar } from '@mui/material';
 import { Person, Edit, ChevronRight, Policy } from '@mui/icons-material';
 import { GoPerson } from "react-icons/go";
 import { GrSettingsOption } from "react-icons/gr";
@@ -48,7 +48,7 @@ const Profile = ({ userProfile, setUserProfile, isEditingProfile, setIsEditingPr
           <div className="relative">
             {userProfile.photos[0] ? (
               <img 
-                src={userProfile.photos[0]} 
+              src={(userProfile.photos || [])[0] || ''}
                 alt={`${userProfile.firstName} ${userProfile.lastName}`} 
                 className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover" 
               />
@@ -166,20 +166,11 @@ const Profile = ({ userProfile, setUserProfile, isEditingProfile, setIsEditingPr
     <div ref={profileContainerRef} className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl flex flex-col h-full overflow-y-auto px-4">
       <Card className="shadow-lg">
         <div className="relative">
-          {userProfile.photos[0] ? (
-            <img 
-              src={userProfile.photos[0]} 
-              alt={`${userProfile.firstName} ${userProfile.lastName}`} 
-              className="h-64 sm:h-80 md:h-96 w-full rounded-lg object-cover mt-2" 
-            />
-          ) : (
-            <div className="relative h-64 sm:h-80 md:h-96 w-full rounded-lg mt-2">
-              <div className="absolute inset-0 flex items-center justify-center bg-gray-300">
-                <Person sx={{ fontSize: { xs: 100, sm: 120 }, color: '#FFFFFF' }} />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#6D53F4] to-[#A78BFA] opacity-50 rounded-lg"></div>
-            </div>
-          )}
+          <Avatar
+            src={(userProfile.photos || [])[0] || ''}
+            alt={userProfile.firstName}
+            sx={{ width: 80, height: 80, mb: 2 }}
+          />
         </div>
         <CardContent>
           <TextField 
