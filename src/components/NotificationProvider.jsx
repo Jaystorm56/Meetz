@@ -21,8 +21,11 @@ export const NotificationProvider = ({ children, userProfile, token }) => {
       const { senderId, text, chatId } = data;
       try {
         // Fetch the sender's details to get their firstName
+        const token = localStorage.getItem('accessToken');
         const response = await fetch(`${API_URL}/users/${senderId}`, {
-          credentials: 'include',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
         });
         const sender = await response.json();
         const senderName = sender.firstName || senderId; // Fallback to senderId if firstName is unavailable

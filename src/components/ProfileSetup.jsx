@@ -47,11 +47,14 @@ const ProfileSetup = ({ signupStep, setSignupStep, userProfile, setUserProfile, 
     }
     if (signupStep === 5) {
       setLoading(true);
+      const token = localStorage.getItem('accessToken');
       fetch(`${API_URL}/profile`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userProfile),
-        credentials: 'include'
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(userProfile)
       })
         .then(() => {
           setActiveTab('Home');

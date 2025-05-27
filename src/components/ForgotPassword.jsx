@@ -5,7 +5,11 @@ const API_URL = 'https://meetz-api.onrender.com';
 const ForgotPassword = ({ forgotData, setForgotData, resetData, setResetData, resetToken, setActiveTab, setAuthError, setLoading }) => {
   const handleForgotPassword = () => {
     setLoading(true);
-    fetch(`${API_URL}/forgot-password`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(forgotData), credentials: 'include' })
+    fetch(`${API_URL}/forgot-password`, { 
+      method: 'POST', 
+      headers: { 'Content-Type': 'application/json' }, 
+      body: JSON.stringify(forgotData)
+    })
       .then(res => res.json())
       .then(data => {
         if (data.error) setAuthError(data.error);
@@ -17,7 +21,11 @@ const ForgotPassword = ({ forgotData, setForgotData, resetData, setResetData, re
 
   const handleResetPassword = () => {
     setLoading(true);
-    fetch(`${API_URL}/reset-password`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(resetData), credentials: 'include' })
+    fetch(`${API_URL}/reset-password`, { 
+      method: 'POST', 
+      headers: { 'Content-Type': 'application/json' }, 
+      body: JSON.stringify(resetData)
+    })
       .then(res => res.json())
       .then(data => {
         if (data.error) setAuthError(data.error);

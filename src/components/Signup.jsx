@@ -47,8 +47,7 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
     fetch(`${API_URL}/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formattedData),
-      credentials: 'include'
+      body: JSON.stringify(formattedData)
     })
       .then(async res => {
         let data;
@@ -63,6 +62,11 @@ const Signup = ({ signupData, setSignupData, setToken, setSignupStep, setAuthErr
         if (!res.ok) {
           setAuthError(data.error || 'Signup failed');
         } else {
+          // Store tokens in localStorage
+          if (data.tokens) {
+            localStorage.setItem('accessToken', data.tokens.accessToken);
+            localStorage.setItem('refreshToken', data.tokens.refreshToken);
+          }
           setSignupStep(1);
           setAuthError('');
         }

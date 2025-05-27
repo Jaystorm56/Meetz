@@ -10,7 +10,7 @@ import MatchProfile from './MatchProfile';
 
 const API_URL = 'https://meetz-api.onrender.com';
 
-const Home = ({ users, currentIndex, setCurrentIndex, token, setActiveTab, setLoading, onMatch, refetchUsers }) => {
+const Home = ({ users, currentIndex, setCurrentIndex, token, setActiveTab, setLoading, onMatch, refetchUsers, refetchMatches }) => {
   console.log('Home component rendered', users);
   const cardRef = useRef(null);
   const [showMatchProfile, setShowMatchProfile] = useState(false);
@@ -72,6 +72,47 @@ const Home = ({ users, currentIndex, setCurrentIndex, token, setActiveTab, setLo
   const handleMatch = (user) => {
     setSelectedUser(user);
     setShowMatchProfile(true);
+  };
+
+  const handleLike = () => {
+    if (currentUser) {
+      setLoading(true);
+      const token = localStorage.getItem('accessToken');
+      fetch(`${API_URL}/like`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ likedUserId: currentUser._id })
+      })
+        .then(() => {
+          refetchUsers();
+          refetchMatches();
+        })
+        .catch(err => console.error('Error liking user:', err))
+        .finally(() => setLoading(false));
+    }
+  };
+
+  const handleDislike = () => {
+    if (currentUser) {
+      setLoading(true);
+      const token = localStorage.getItem('accessToken');
+      fetch(`${API_URL}/dislike`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ dislikedUserId: currentUser._id })
+      })
+        .then(() => {
+          refetchUsers();
+        })
+        .catch(err => console.error('Error disliking user:', err))
+        .finally(() => setLoading(false));
+    }
   };
 
   return (

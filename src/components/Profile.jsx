@@ -7,7 +7,7 @@ import { IoExit } from "react-icons/io5";
 
 const API_URL = 'https://meetz-api.onrender.com';
 
-const Profile = ({ userProfile, setUserProfile, isEditingProfile, setIsEditingProfile, token, setToken, setActiveTab, setLoading, handlePhotoUpload, capitalizeName }) => {
+const Profile = ({ userProfile, setUserProfile, isEditingProfile, setIsEditingProfile, token, setToken, setActiveTab, setLoading, handlePhotoUpload, capitalizeName, refetchUsers }) => {
   const fileInputRefs = useRef([]);
   const profileContainerRef = useRef(null);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -18,15 +18,18 @@ const Profile = ({ userProfile, setUserProfile, isEditingProfile, setIsEditingPr
 
   const handleSaveProfile = () => {
     setLoading(true);
-    fetch(`${API_URL}/profile`, { 
+    const token = localStorage.getItem('accessToken');
+    fetch(`${API_URL}/profile`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userProfile),
-      credentials: 'include'
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(userProfile)
     })
       .then(() => {
         setIsEditingProfile(false);
-        setActiveTab('Profile');
+        if (typeof refetchUsers === 'function') refetchUsers();
       })
       .catch(err => console.error('Error saving profile:', err))
       .finally(() => setLoading(false));

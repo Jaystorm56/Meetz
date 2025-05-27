@@ -56,6 +56,14 @@ function App() {
     age: [18, 48],
   });
 
+  // Function to get auth headers
+  const getAuthHeaders = () => {
+    const token = localStorage.getItem('accessToken');
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': token ? `Bearer ${token}` : ''
+    };
+  };
 
   // Function to refetch users with retry logic
   const refetchUsers = async (retryCount = 0) => {
@@ -63,24 +71,18 @@ function App() {
       setLoading(true);
       try {
         const res = await fetch(`${API_URL}/users`, { 
-          credentials: 'include'
+          headers: getAuthHeaders()
         });
-        console.log('Users response status:', res.status);
-        console.log('Users response headers:', Object.fromEntries(res.headers.entries()));
         
         const data = await res.json();
-        console.log('Users response data:', data);
         
         if (data.error === 'Token required' && retryCount < 3) {
-          console.log('Token missing, retrying...', retryCount + 1);
-          console.log('Debug info:', data.debug);
           setTimeout(() => refetchUsers(retryCount + 1), 1000);
           return;
         }
         
         if (data.error) {
           console.error('Error fetching users:', data.error);
-          console.error('Debug info:', data.debug);
           return;
         }
         
@@ -102,7 +104,7 @@ function App() {
     if (signupStep === 0) {
       setLoading(true);
       fetch(`${API_URL}/matches`, { 
-        credentials: 'include'
+        headers: getAuthHeaders()
       })
         .then(res => res.json())
         .then(data => setMatches(data))
@@ -116,7 +118,7 @@ function App() {
     if (signupStep === 0) {
       setLoading(true);
       fetch(`${API_URL}/profile`, { 
-        credentials: 'include'
+        headers: getAuthHeaders()
       })
         .then(res => res.json())
         .then(data => setUserProfile(data))
@@ -142,7 +144,7 @@ function App() {
     if (signupStep === 0) {
       setLoading(true);
       fetch(`${API_URL}/messages`, { 
-        credentials: 'include'
+        headers: getAuthHeaders()
       })
         .then(res => {
           if (!res.ok) {
@@ -254,8 +256,11 @@ function App() {
     try {
       await fetch(`${API_URL}/logout`, {
         method: 'POST',
-        credentials: 'include'
+        headers: getAuthHeaders()
       });
+      // Clear localStorage
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
     } catch (err) {
       // Optionally handle error
     }
@@ -271,22 +276,21 @@ function App() {
       const res = await fetch(`${API_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(loginData),
-        credentials: 'include'
+        body: JSON.stringify(loginData)
       });
       
-      console.log('Login response status:', res.status);
-      console.log('Login response headers:', Object.fromEntries(res.headers.entries()));
-      
       const data = await res.json();
-      console.log('Login response data:', data);
       
       if (data.error) {
-        setAuthError(data.error + (data.debug ? ` (Debug: ${JSON.stringify(data.debug)})` : ''));
+        setAuthError(data.error);
       } else {
+        // Store tokens in localStorage
+        localStorage.setItem('accessToken', data.tokens.accessToken);
+        localStorage.setItem('refreshToken', data.tokens.refreshToken);
+        
         setActiveTab('Home');
         setAuthError('');
-        // Add a small delay before fetching users to ensure cookies are set
+        // Add a small delay before fetching users
         setTimeout(() => refetchUsers(), 500);
       }
     } catch (err) {
