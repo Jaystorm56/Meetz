@@ -17,6 +17,7 @@ const ChatScreen = ({ selectedUser, setSelectedUser, userProfile, chatMessages, 
     setLoading(true);
     fetch(`${API_URL}/messages/${selectedUser._id}`, {
       headers: { 'Authorization': `Bearer ${token}` },
+      credentials: 'include'
     })
       .then(res => res.json())
       .then(messages => {

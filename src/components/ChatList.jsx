@@ -14,7 +14,7 @@ const ChatList = ({ allChatMessages, token, setSelectedUser, setActiveTab }) => 
       Promise.all(
         chattedUserIds.map(id =>
           fetch(`${API_URL}/users/${id}`, {
-            headers: { 'Authorization': `Bearer ${token}` },
+            credentials: 'include',
           })
             .then(res => res.json())
             .catch(err => {
