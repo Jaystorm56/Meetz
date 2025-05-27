@@ -19,15 +19,21 @@ const Login = ({ loginData, setLoginData, setToken, setActiveTab, setAuthError, 
       body: JSON.stringify(loginData),
       credentials: 'include'
     })
-      .then(res => res.json())
-      .then(data => {
-        if (data.error) setAuthError(data.error);
-        else {
+      .then(async res => {
+        console.log('Login response status:', res.status);
+        console.log('Login response headers:', Object.fromEntries(res.headers.entries()));
+        const data = await res.json();
+        if (data.error) {
+          setAuthError(data.error);
+        } else {
           setActiveTab('Home');
           setAuthError('');
         }
       })
-      .catch(err => setAuthError('Login failed'))
+      .catch(err => {
+        console.error('Login error:', err);
+        setAuthError('Login failed');
+      })
       .finally(() => setLoading(false));
   };
 

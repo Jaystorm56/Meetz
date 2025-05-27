@@ -64,8 +64,15 @@ function App() {
       fetch(`${API_URL}/users`, { 
         credentials: 'include',
       })
-        .then(res => res.json())
-        .then(data => {
+        .then(async res => {
+          console.log('Users response status:', res.status);
+          console.log('Users response headers:', Object.fromEntries(res.headers.entries()));
+          const data = await res.json();
+          console.log('Users response data:', data);
+          if (data.error) {
+            console.error('Error fetching users:', data.error);
+            return;
+          }
           setUsers(data);
           setCurrentIndex(data.length - 1);
         })
