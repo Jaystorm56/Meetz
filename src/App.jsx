@@ -63,7 +63,7 @@ function App() {
       setLoading(true);
       try {
         const res = await fetch(`${API_URL}/users`, { 
-          credentials: 'include',
+          credentials: 'include'
         });
         console.log('Users response status:', res.status);
         console.log('Users response headers:', Object.fromEntries(res.headers.entries()));
@@ -102,7 +102,7 @@ function App() {
     if (signupStep === 0) {
       setLoading(true);
       fetch(`${API_URL}/matches`, { 
-        credentials: 'include',
+        credentials: 'include'
       })
         .then(res => res.json())
         .then(data => setMatches(data))
@@ -116,7 +116,7 @@ function App() {
     if (signupStep === 0) {
       setLoading(true);
       fetch(`${API_URL}/profile`, { 
-        credentials: 'include',
+        credentials: 'include'
       })
         .then(res => res.json())
         .then(data => setUserProfile(data))
@@ -142,7 +142,7 @@ function App() {
     if (signupStep === 0) {
       setLoading(true);
       fetch(`${API_URL}/messages`, { 
-        credentials: 'include',
+        credentials: 'include'
       })
         .then(res => {
           if (!res.ok) {
@@ -254,7 +254,7 @@ function App() {
     try {
       await fetch(`${API_URL}/logout`, {
         method: 'POST',
-        credentials: 'include',
+        credentials: 'include'
       });
     } catch (err) {
       // Optionally handle error
