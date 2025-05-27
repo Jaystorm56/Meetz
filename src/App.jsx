@@ -72,14 +72,15 @@ function App() {
         console.log('Users response data:', data);
         
         if (data.error === 'Token required' && retryCount < 3) {
-          // If token is missing, wait a bit and retry
           console.log('Token missing, retrying...', retryCount + 1);
+          console.log('Debug info:', data.debug);
           setTimeout(() => refetchUsers(retryCount + 1), 1000);
           return;
         }
         
         if (data.error) {
           console.error('Error fetching users:', data.error);
+          console.error('Debug info:', data.debug);
           return;
         }
         
@@ -278,8 +279,10 @@ function App() {
       console.log('Login response headers:', Object.fromEntries(res.headers.entries()));
       
       const data = await res.json();
+      console.log('Login response data:', data);
+      
       if (data.error) {
-        setAuthError(data.error);
+        setAuthError(data.error + (data.debug ? ` (Debug: ${JSON.stringify(data.debug)})` : ''));
       } else {
         setActiveTab('Home');
         setAuthError('');
@@ -288,7 +291,7 @@ function App() {
       }
     } catch (err) {
       console.error('Login error:', err);
-      setAuthError('Login failed');
+      setAuthError('Login failed: ' + err.message);
     } finally {
       setLoading(false);
     }
