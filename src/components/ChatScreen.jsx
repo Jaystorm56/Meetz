@@ -14,23 +14,22 @@ const ChatScreen = ({ selectedUser, setSelectedUser, userProfile, chatMessages, 
 
   // Fetch initial messages
   useEffect(() => {
-    setLoading(true);
-    fetch(`${API_URL}/messages/${selectedUser._id}`, {
-      headers: { 'Authorization': `Bearer ${token}` },
-      credentials: 'include'
-    })
-      .then(res => res.json())
-      .then(messages => {
-        setChatMessages(messages);
-        setAllChatMessages(prev => ({ ...prev, [selectedUser._id]: messages }));
-        // Position at bottom without animation
-        if (chatContainerRef.current) {
-          chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    const fetchMessages = async () => {
+      const token = localStorage.getItem('accessToken');
+      const response = await fetch(`${API_URL}/messages/${selectedUser._id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
         }
-      })
-      .catch(err => console.error('Error fetching messages:', err))
-      .finally(() => setLoading(false));
-  }, [selectedUser, token, setChatMessages, setAllChatMessages, setLoading]);
+      });
+      const data = await response.json();
+      setChatMessages(data);
+      setAllChatMessages(prev => ({
+        ...prev,
+        [selectedUser._id]: data
+      }));
+    };
+    fetchMessages();
+  }, [selectedUser]);
 
   // Position at bottom when messages change
   useEffect(() => {

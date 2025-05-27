@@ -35,11 +35,14 @@ const Home = ({ users, currentIndex, setCurrentIndex, token, setActiveTab, setLo
       setCurrentIndex(prev => prev - 1);
 
       if (direction === 'right') {
+        const token = localStorage.getItem('accessToken');
         fetch(`${API_URL}/likes`, { 
           method: 'POST', 
-          headers: { 'Content-Type': 'application/json' }, 
-          body: JSON.stringify({ userId: user._id }),
-          credentials: 'include'
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }, 
+          body: JSON.stringify({ userId: user._id })
         })
           .then(res => res.json())
           .then(data => {
