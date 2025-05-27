@@ -4,38 +4,12 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const API_URL = 'https://meetz-api.onrender.com';
 
-const Login = ({ loginData, setLoginData, setToken, setActiveTab, setAuthError, setLoading }) => {
+const Login = ({ loginData, setLoginData, setToken, setActiveTab, setAuthError, setLoading, handleLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  const handleLogin = () => {
-    setLoading(true);
-    fetch(`${API_URL}/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(loginData),
-      credentials: 'include'
-    })
-      .then(async res => {
-        console.log('Login response status:', res.status);
-        console.log('Login response headers:', Object.fromEntries(res.headers.entries()));
-        const data = await res.json();
-        if (data.error) {
-          setAuthError(data.error);
-        } else {
-          setActiveTab('Home');
-          setAuthError('');
-        }
-      })
-      .catch(err => {
-        console.error('Login error:', err);
-        setAuthError('Login failed');
-      })
-      .finally(() => setLoading(false));
-  };
 
   return (
     <div className="w-full max-w-md mx-auto flex flex-col items-center justify-evenly h-[600px] ">
@@ -72,7 +46,6 @@ const Login = ({ loginData, setLoginData, setToken, setActiveTab, setAuthError, 
       <Button onClick={() => setActiveTab('Signup')} sx={{ color: '#6D53F4', fontSize: 13, fontWeight: 500 }}>Need an account? Sign up</Button>
       <Button onClick={() => setActiveTab('Forgot')} sx={{ color: '#6D53F4', fontSize: 13, fontWeight: 500 }}>Forgot Password?</Button>
       </Box>
-     
     </div>
   );
 };

@@ -57,27 +57,42 @@ function App() {
   });
 
 
-  // Function to refetch users
-  const refetchUsers = () => {
+  // Function to refetch users with retry logic
+  const refetchUsers = async (retryCount = 0) => {
     if (signupStep === 0) {
       setLoading(true);
-      fetch(`${API_URL}/users`, { 
-        credentials: 'include',
-      })
-        .then(async res => {
-          console.log('Users response status:', res.status);
-          console.log('Users response headers:', Object.fromEntries(res.headers.entries()));
-          const data = await res.json();
-          console.log('Users response data:', data);
-          if (data.error) {
-            console.error('Error fetching users:', data.error);
-            return;
-          }
-          setUsers(data);
-          setCurrentIndex(data.length - 1);
-        })
-        .catch(err => console.error('Error refetching users:', err))
-        .finally(() => setLoading(false));
+      try {
+        const res = await fetch(`${API_URL}/users`, { 
+          credentials: 'include',
+        });
+        console.log('Users response status:', res.status);
+        console.log('Users response headers:', Object.fromEntries(res.headers.entries()));
+        
+        const data = await res.json();
+        console.log('Users response data:', data);
+        
+        if (data.error === 'Token required' && retryCount < 3) {
+          // If token is missing, wait a bit and retry
+          console.log('Token missing, retrying...', retryCount + 1);
+          setTimeout(() => refetchUsers(retryCount + 1), 1000);
+          return;
+        }
+        
+        if (data.error) {
+          console.error('Error fetching users:', data.error);
+          return;
+        }
+        
+        setUsers(data);
+        setCurrentIndex(data.length - 1);
+      } catch (err) {
+        console.error('Error refetching users:', err);
+        if (retryCount < 3) {
+          setTimeout(() => refetchUsers(retryCount + 1), 1000);
+        }
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -249,6 +264,36 @@ function App() {
     setLoading(false);
   };
 
+  const handleLogin = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_URL}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(loginData),
+        credentials: 'include'
+      });
+      
+      console.log('Login response status:', res.status);
+      console.log('Login response headers:', Object.fromEntries(res.headers.entries()));
+      
+      const data = await res.json();
+      if (data.error) {
+        setAuthError(data.error);
+      } else {
+        setActiveTab('Home');
+        setAuthError('');
+        // Add a small delay before fetching users to ensure cookies are set
+        setTimeout(() => refetchUsers(), 500);
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      setAuthError('Login failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (signupStep > 0) {
     return (
       <ProfileSetup
@@ -280,6 +325,7 @@ function App() {
             setActiveTab={setActiveTab}
             setAuthError={setAuthError}
             setLoading={setLoading}
+            handleLogin={handleLogin}
           />
         )}
         {activeTab === 'Signup' && (
